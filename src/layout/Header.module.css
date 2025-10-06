@@ -1,0 +1,131 @@
+/* --- SPREZOX HEADER STYLES --- */
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 1.5rem 5%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+  height: 80px;
+  transition: background-color 0.3s ease, backdrop-filter 0.3s ease, border-color 0.3s ease;
+}
+
+.headerScrolled {
+  background-color: rgba(17, 17, 17, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-primary);
+}
+
+.logo {
+  font-weight: 800;
+  font-size: 2rem;
+  letter-spacing: -0.05em;
+  color: var(--text-primary);
+}
+
+/* --- Base (Mobile) Styles --- */
+.desktopNav {
+  display: none;
+}
+
+.menuButton {
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  cursor: pointer;
+  z-index: 1001;
+  padding: var(--space-2);
+}
+
+.mobileMenu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(17, 17, 17, 0.95);
+  backdrop-filter: blur(10px);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobileNavLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  align-items: center;
+}
+
+.mobileNavLinks .navLink {
+  font-size: 2rem;
+}
+
+/* --- Shared Navigation Link Styles --- */
+.navLink {
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.2s;
+  font-size: 1.2rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  padding: var(--space-2);
+  border-radius: var(--radius-md);
+}
+
+.navLink.active {
+  color: var(--text-primary);
+}
+
+.navLink:hover {
+  color: var(--text-primary);
+}
+
+.navIcon {
+  margin-right: 0.5rem;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.gradientButton {
+  background: linear-gradient(90deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 0.9rem 1.75rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.desktopOnlyButton {
+  display: none; /* Hidden on mobile */
+}
+
+/* --- RESPONSIVE OVERRIDES --- */
+
+/* Tablet and larger */
+@media (min-width: 768px) {
+  .desktopNav {
+    display: flex;
+    gap: 2.5rem;
+  }
+  .menuButton {
+    display: none;
+  }
+  .desktopOnlyButton {
+    display: inline-flex;
+  }
+}

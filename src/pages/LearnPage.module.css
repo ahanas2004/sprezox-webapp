@@ -1,0 +1,43 @@
+/* --- SPREZOX LEARN PAGE STYLES --- */
+
+/* This container creates a focused, single-column layout for the feed.
+  The max-width ensures a comfortable reading experience on large desktop screens,
+  preventing the content from stretching too wide. It is centered horizontally.
+*/
+.container {
+  width: 100%;
+  max-width: 720px; /* Optimal reading width for a single feed */
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+}
+
+/* This is the direct container for the list of ContentCards.
+  It uses a flex column layout with a significant gap to create a clean,
+  spacious, and scrollable feed.
+*/
+.feedContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-10); /* 2.5rem gap between cards */
+}
+
+/* Styling for the message that appears when the feed is empty. */
+.emptyState {
+    font-size: var(--font-size-lg);
+    color: var(--text-secondary);
+    text-align: center;
+    margin-top: var(--space-12);
+    padding: var(--space-8);
+    background-color: var(--bg-surface);
+    border-radius: var(--radius-lg);
+    border: 1px dashed var(--border-primary);
+}
+
+/* Styling for displaying fetch errors to the user. */
+.errorText {
+    font-size: var(--font-size-lg);
+    color: #ef4444; /* A standard error red color */
+    text-align: center;
+    margin-top: var(--space-12);
+}

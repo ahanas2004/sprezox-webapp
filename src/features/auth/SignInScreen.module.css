@@ -1,0 +1,69 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 1rem;
+    background-color: var(--bg-primary);
+}
+.formContainer {
+    width: 100%;
+    max-width: 420px;
+    background-color: var(--bg-surface);
+    padding: 2rem;
+    border-radius: 20px;
+    border: 1px solid var(--border-primary);
+}
+.title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+.subtitle {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+.input {
+    width: 100%; padding: 1.1rem; margin-bottom: 1rem;
+    background-color: var(--bg-primary); border: 1px solid var(--border-primary);
+    border-radius: 12px; color: var(--text-primary); font-size: 1.1rem;
+    box-sizing: border-box; transition: border-color 0.2s, box-shadow 0.2s;
+}
+.input:focus {
+    outline: none; border-color: var(--gradient-start);
+    box-shadow: 0 0 15px var(--glow-color);
+}
+.buttonGroup {
+    display: flex; flex-direction: column-reverse; gap: 1rem; margin-top: 1rem;
+}
+.button, .secondaryButton, .googleButton {
+    width: 100%; padding: 1rem; border-radius: 12px; font-size: 1.1rem;
+    font-weight: 600; cursor: pointer; box-sizing: border-box;
+}
+.button {
+    border: none; color: white;
+    background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+}
+.secondaryButton {
+    border: 1px solid var(--border-primary); color: var(--text-primary);
+    background-color: transparent;
+}
+.separator {
+    height: 1px; background-color: var(--border-primary); margin: 2rem 0;
+    position: relative; display: flex; align-items: center; justify-content: center;
+}
+.separatorText {
+    position: absolute; background-color: var(--bg-surface);
+    padding: 0 1rem; color: var(--text-secondary);
+}
+.googleButton {
+    border: 1px solid var(--border-primary); color: var(--text-primary);
+    background-color: var(--bg-surface);
+}
+@media (min-width: 640px) {
+    .formContainer { padding: 3.5rem; }
+    .buttonGroup { flex-direction: row; }
+}

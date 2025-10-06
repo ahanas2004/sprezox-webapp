@@ -1,0 +1,20 @@
+.form, .field { display: flex; flex-direction: column; }
+.form { gap: 1.5rem; }
+.label { font-size: 1rem; font-weight: 500; margin-bottom: 0.5rem; color: var(--text-secondary); }
+.input, .textarea {
+    width: 100%; padding: 0.75rem 1rem; background-color: var(--background-primary);
+    border: 1px solid var(--border-primary); border-radius: 8px; color: var(--text-primary);
+    font-size: 1rem; box-sizing: border-box;
+}
+.textarea { min-height: 100px; resize: vertical; }
+.radioGroup { display: flex; gap: 1rem; flex-wrap: wrap; }
+.radioGroup button {
+    background: var(--background-primary); border: 1px solid var(--border-primary);
+    color: var(--text-secondary); padding: 0.5rem 1rem; border-radius: 99px; cursor: pointer;
+}
+.radioGroup button.active { background: var(--gradient-start); color: white; border-color: var(--gradient-start); }
+.saveButton {
+    background: linear-gradient(90deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+    color: white; border: none; border-radius: 8px; padding: 0.8rem 1.5rem;
+    font-size: 1rem; font-weight: 600; cursor: pointer; align-self: flex-start;
+}

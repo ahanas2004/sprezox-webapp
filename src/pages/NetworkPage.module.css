@@ -1,0 +1,46 @@
+/* --- SPREZOX NETWORK PAGE STYLES --- */
+
+/* Container for the entire Network page. 
+  It sets the max-width and centers the content.
+*/
+.container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1rem 0; /* Vertical padding */
+  box-sizing: border-box;
+}
+
+/* The responsive grid for displaying investor profile cards.
+  - `auto-fill` creates as many columns as will fit.
+  - `minmax(320px, 1fr)` ensures cards are at least 320px wide but can grow to fill space.
+  This is the core of our fluid responsiveness for the card layout.
+*/
+.profileGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--space-8); /* 2rem gap between cards */
+}
+
+/* Styling for the message that appears when no investors have listed their profiles yet.
+  It's centered and uses a secondary text color for a softer look.
+*/
+.emptyState {
+    font-size: var(--font-size-lg);
+    color: var(--text-secondary);
+    text-align: center;
+    margin-top: var(--space-12);
+    padding: var(--space-8);
+    background-color: var(--bg-surface);
+    border-radius: var(--radius-lg);
+    border: 1px dashed var(--border-primary);
+}
+
+/* --- RESPONSIVENESS --- */
+
+/* For very small screens, reduce the minimum card width to prevent overflow */
+@media (max-width: 374px) {
+  .profileGrid {
+    grid-template-columns: 1fr; /* Stack to a single column */
+  }
+}

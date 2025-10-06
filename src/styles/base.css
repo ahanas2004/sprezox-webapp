@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+body {
+  margin: 0;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-main);
+  transition: background-color var(--transition-medium) ease, color var(--transition-medium) ease;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+main {
+  padding-top: 80px;
+  min-height: 100vh;
+}
+.pageTitle {
+  font-size: var(--font-size-h1);
+  font-weight: 800;
+  margin-bottom: var(--space-4);
+  letter-spacing: -0.04em;
+}
+.pageSubtitle {
+  font-size: var(--font-size-lg);
+  color: var(--text-secondary);
+  max-width: 700px;
+  margin-bottom: var(--space-16);
+  line-height: 1.7;
+}

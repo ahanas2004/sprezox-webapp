@@ -1,0 +1,38 @@
+.dashboardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-8);
+}
+.dashboardTitle {
+    font-size: var(--font-size-h2);
+    font-weight: 700;
+    margin: 0;
+}
+.uploadButton {
+    background: linear-gradient(90deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+.uploadButton:hover {
+    transform: scale(1.1);
+}
+.videoGrid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+}
+.emptyState {
+    font-size: var(--font-size-lg);
+    color: var(--text-secondary);
+    text-align: center;
+    margin-top: var(--space-12);
+}

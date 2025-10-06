@@ -1,0 +1,119 @@
+.profileHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: -2rem; /* Pulls the card up visually */
+}
+
+.signOutButton {
+    background: #B91C1C;
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    padding: var(--space-3) var(--space-6);
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+}
+.signOutButton:hover {
+    background: #991B1B;
+    transform: translateY(-2px);
+}
+
+/* --- Role Selection --- */
+.roleSelectionContainer {
+    text-align: center;
+    padding: var(--space-8) 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    min-height: 300px;
+}
+.roleTitle {
+    font-size: var(--font-size-h2);
+    font-weight: 700;
+}
+.roleSubtitle {
+    font-size: var(--font-size-lg);
+    color: var(--text-secondary);
+    margin-top: var(--space-2);
+    margin-bottom: var(--space-12);
+}
+.roleOptions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+}
+.roleButton {
+    background: var(--background-primary);
+    border: 1px solid var(--border-primary);
+    color: var(--text-primary);
+    padding: var(--space-8);
+    border-radius: var(--radius-lg);
+    font-size: var(--font-size-h3);
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-4);
+    transition: background-color 0.2s, border-color 0.2s, transform 0.2s;
+}
+.roleButton:hover {
+    transform: translateY(-5px);
+    border-color: var(--gradient-start);
+    background-color: var(--border-primary);
+}
+
+/* --- Dashboards & Setup --- */
+.dashboardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-8);
+    flex-wrap: wrap;
+    gap: var(--space-4);
+}
+.dashboardTitle {
+    font-size: var(--font-size-h2);
+    font-weight: 700;
+    margin: 0;
+}
+.editButton {
+    background: none;
+    border: 1px solid var(--border-primary);
+    color: var(--text-secondary);
+    padding: var(--space-3) var(--space-6);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    transition: color 0.2s, border-color 0.2s;
+}
+.editButton:hover {
+    color: var(--text-primary);
+    border-color: var(--text-primary);
+}
+.emptyState {
+    font-size: var(--font-size-lg);
+    color: var(--text-secondary);
+    text-align: center;
+    margin-top: var(--space-12);
+}
+
+/* --- RESPONSIVENESS --- */
+@media (min-width: 768px) {
+    .roleOptions {
+        flex-direction: row;
+    }
+    .roleButton {
+        flex: 1;
+    }
+}
