@@ -1,20 +1,85 @@
-.form, .field { display: flex; flex-direction: column; }
-.form { gap: 1.5rem; }
-.label { font-size: 1rem; font-weight: 500; margin-bottom: 0.5rem; color: var(--text-secondary); }
+.form, .field { 
+    display: flex; 
+    flex-direction: column; 
+}
+.form { 
+    gap: 1.5rem; 
+}
+
+.label { 
+    font-size: 1rem; 
+    font-weight: 500; 
+    margin-bottom: 0.5rem; 
+    color: var(--text-secondary); 
+    transition: color 0.2s;
+}
+
 .input, .textarea {
-    width: 100%; padding: 0.75rem 1rem; background-color: var(--background-primary);
-    border: 1px solid var(--border-primary); border-radius: 8px; color: var(--text-primary);
-    font-size: 1rem; box-sizing: border-box;
+    width: 100%; 
+    padding: 0.75rem 1rem; 
+    background-color: var(--background-primary);
+    border: 1px solid var(--border-primary); 
+    border-radius: 8px; 
+    color: var(--text-primary);
+    font-size: 1rem; 
+    box-sizing: border-box;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
 }
-.textarea { min-height: 100px; resize: vertical; }
-.radioGroup { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+.input:focus, .textarea:focus {
+    outline: none; 
+    border-color: var(--gradient-start);
+    box-shadow: 0 0 12px rgba(79,70,229,0.4);
+    background-color: var(--bg-surface);
+}
+
+.textarea { 
+    min-height: 100px; 
+    resize: vertical; 
+}
+
+.radioGroup { 
+    display: flex; 
+    gap: 1rem; 
+    flex-wrap: wrap; 
+}
+
 .radioGroup button {
-    background: var(--background-primary); border: 1px solid var(--border-primary);
-    color: var(--text-secondary); padding: 0.5rem 1rem; border-radius: 99px; cursor: pointer;
+    background: var(--background-primary); 
+    border: 1px solid var(--border-primary);
+    color: var(--text-secondary); 
+    padding: 0.5rem 1rem; 
+    border-radius: 99px; 
+    cursor: pointer;
+    transition: all 0.25s ease;
 }
-.radioGroup button.active { background: var(--gradient-start); color: white; border-color: var(--gradient-start); }
+
+.radioGroup button:hover {
+    background-color: var(--bg-surface);
+    border-color: var(--gradient-start);
+    color: var(--text-primary);
+}
+
+.radioGroup button.active { 
+    background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end)); 
+    color: white; 
+    border-color: var(--gradient-start); 
+}
+
 .saveButton {
     background: linear-gradient(90deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
-    color: white; border: none; border-radius: 8px; padding: 0.8rem 1.5rem;
-    font-size: 1rem; font-weight: 600; cursor: pointer; align-self: flex-start;
+    color: white; 
+    border: none; 
+    border-radius: 8px; 
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem; 
+    font-weight: 600; 
+    cursor: pointer; 
+    align-self: flex-start;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.saveButton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(79,70,229,0.35);
 }

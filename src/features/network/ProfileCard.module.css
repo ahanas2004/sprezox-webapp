@@ -5,17 +5,73 @@
   padding: 2rem;
   display: flex;
   flex-direction: column;
-  transition: box-shadow 0.3s, transform 0.3s;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
-.header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
-.avatar { width: 60px; height: 60px; border-radius: 50%; }
-.nameContainer { display: flex; flex-direction: column; }
-.name { font-size: 1.5rem; font-weight: 700; margin: 0; }
-.role { font-size: 1rem; color: var(--text-secondary); margin: 0; }
-.bio { font-size: 1.1rem; color: var(--text-secondary); line-height: 1.6; flex-grow: 1; margin-bottom: 1.5rem; }
-.interests { margin-bottom: 1.5rem; }
-.interestLabel { font-size: 0.9rem; font-weight: 500; color: var(--text-muted); }
-.tagContainer { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; }
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(79, 70, 229, 0.2);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid var(--border-primary);
+  transition: transform 0.3s ease;
+}
+.avatar:hover {
+  transform: scale(1.05);
+}
+
+.nameContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.role {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.bio {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  flex-grow: 1;
+  margin-bottom: 1.5rem;
+}
+
+.interests {
+  margin-bottom: 1.5rem;
+}
+
+.interestLabel {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.tagContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
 .tag {
   background-color: var(--border-primary);
   color: var(--text-primary);
@@ -23,11 +79,31 @@
   border-radius: 999px;
   font-size: 0.9rem;
   font-weight: 500;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
+.tag:hover {
+  background-color: var(--gradient-start);
+  color: white;
+  transform: translateY(-2px);
+}
+
 .connectButton {
   background: linear-gradient(90deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
-  color: white; border: none; border-radius: 10px;
-  padding: 0.8rem 1.5rem; font-size: 1.1rem; font-weight: 600;
-  cursor: pointer; display: flex; align-items: center;
-  justify-content: center; gap: 0.5rem; width: 100%;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 0.8rem 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+.connectButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(79, 70, 229, 0.3);
 }

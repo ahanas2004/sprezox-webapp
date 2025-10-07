@@ -1,27 +1,46 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+/* --- BASE STYLES --- */
 body {
   margin: 0;
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  font-family: var(--font-main);
+  font-family: 'Inter', var(--font-main);
+  font-size: var(--font-size-base);
+  line-height: 1.6;
   transition: background-color var(--transition-medium) ease, color var(--transition-medium) ease;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 main {
-  padding-top: 80px;
+  padding-top: 80px; /* Matches fixed header height */
   min-height: 100vh;
+  box-sizing: border-box;
 }
+
+/* --- PAGE TYPOGRAPHY --- */
 .pageTitle {
   font-size: var(--font-size-h1);
   font-weight: 800;
   margin-bottom: var(--space-4);
   letter-spacing: -0.04em;
+  line-height: 1.2;
+  color: var(--text-primary);
+  transition: color var(--transition-fast) ease;
 }
+
 .pageSubtitle {
   font-size: var(--font-size-lg);
   color: var(--text-secondary);
   max-width: 700px;
   margin-bottom: var(--space-16);
   line-height: 1.7;
+  transition: color var(--transition-fast) ease;
+}
+
+/* --- SMOOTH TEXT ADJUSTMENTS --- */
+h1, h2, h3, h4, h5, h6, p {
+  margin: 0;
+  padding: 0;
 }

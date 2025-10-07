@@ -10,3 +10,4 @@
 .input:focus, .textarea:focus {
     outline: none; border-color: var(--gradient-start); box-shadow: 0 0 15px var(--glow-color);
 }
+.input::placeholder, .textarea::placeholder { color: var(--text-placeholder); }

@@ -1,21 +1,32 @@
 :root {
-  /* DARK THEME (DEFAULT) */
-  --bg-primary: #111111;
-  --bg-surface: #18181b;
-  --border-primary: #374151;
-  --text-primary: #F9FAFB;
-  --text-secondary: #9CA3AF;
-  --text-muted: #6B7280;
-  --gradient-start: #4F46E5;
-  --gradient-end: #7C3AED;
-  --glow-color: rgba(99, 102, 241, 0.4);
+  /* --- DARK THEME (DEFAULT) --- */
+  --bg-primary: #111111;         /* Main page background */
+  --bg-surface: #18181b;         /* Cards, modals, panels */
+  --border-primary: #374151;     /* Borders for inputs, cards */
+  --text-primary: #F9FAFB;       /* Main text */
+  --text-secondary: #9CA3AF;     /* Secondary text / subtitles */
+  --text-muted: #6B7280;         /* Less important text / tags */
+  --gradient-start: #4F46E5;     /* Gradient start color */
+  --gradient-end: #7C3AED;       /* Gradient end color */
+  --glow-color: rgba(99, 102, 241, 0.4); /* Glow effects for hover / cards */
 }
+
 :root.light {
-  /* LIGHT THEME */
+  /* --- LIGHT THEME --- */
   --bg-primary: #F9FAFB;
   --bg-surface: #FFFFFF;
   --border-primary: #E5E7EB;
   --text-primary: #111827;
   --text-secondary: #6B7280;
   --text-muted: #9CA3AF;
+  --gradient-start: #4F46E5;     /* Keep gradient same for consistency */
+  --gradient-end: #7C3AED;
+  --glow-color: rgba(79, 70, 229, 0.3);
+}
+
+/* --- UTILITY TRANSITION VARIABLES --- */
+:root {
+  --transition-fast: 0.2s;
+  --transition-medium: 0.3s;
+  --transition-slow: 0.5s;
 }

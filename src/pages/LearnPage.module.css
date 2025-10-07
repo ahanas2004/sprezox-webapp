@@ -1,43 +1,60 @@
 /* --- SPREZOX LEARN PAGE STYLES --- */
 
-/* This container creates a focused, single-column layout for the feed.
-  The max-width ensures a comfortable reading experience on large desktop screens,
-  preventing the content from stretching too wide. It is centered horizontally.
-*/
+/* Container for the feed: single-column, centered layout */
 .container {
   width: 100%;
   max-width: 720px; /* Optimal reading width for a single feed */
   margin-left: auto;
   margin-right: auto;
   box-sizing: border-box;
+  padding: var(--space-4);
+  transition: padding 0.3s ease;
 }
 
-/* This is the direct container for the list of ContentCards.
-  It uses a flex column layout with a significant gap to create a clean,
-  spacious, and scrollable feed.
-*/
+/* Feed container: flex column with spacious gap */
 .feedContainer {
   display: flex;
   flex-direction: column;
   gap: var(--space-10); /* 2.5rem gap between cards */
+  transition: gap 0.3s ease;
 }
 
-/* Styling for the message that appears when the feed is empty. */
+/* Empty state styling */
 .emptyState {
-    font-size: var(--font-size-lg);
-    color: var(--text-secondary);
-    text-align: center;
-    margin-top: var(--space-12);
-    padding: var(--space-8);
-    background-color: var(--bg-surface);
-    border-radius: var(--radius-lg);
-    border: 1px dashed var(--border-primary);
+  font-size: var(--font-size-lg);
+  color: var(--text-secondary);
+  text-align: center;
+  margin-top: var(--space-12);
+  padding: var(--space-8);
+  background-color: var(--bg-surface);
+  border-radius: var(--radius-lg);
+  border: 1px dashed var(--border-primary);
+  transition: background-color 0.3s, transform 0.2s ease, box-shadow 0.3s ease;
+}
+.emptyState:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(79, 70, 229, 0.1);
 }
 
-/* Styling for displaying fetch errors to the user. */
+/* Error text styling */
 .errorText {
-    font-size: var(--font-size-lg);
-    color: #ef4444; /* A standard error red color */
-    text-align: center;
-    margin-top: var(--space-12);
+  font-size: var(--font-size-lg);
+  color: #ef4444; /* Standard error red */
+  text-align: center;
+  margin-top: var(--space-12);
+  padding: var(--space-4);
+  animation: fadeIn 0.4s ease;
+}
+
+/* Optional subtle fade-in for empty/error messages */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive padding adjustments */
+@media (min-width: 640px) {
+  .container {
+    padding: var(--space-6);
+  }
 }

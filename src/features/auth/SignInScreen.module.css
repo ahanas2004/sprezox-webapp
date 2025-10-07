@@ -1,69 +1,141 @@
 .container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    padding: 1rem;
-    background-color: var(--bg-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 1rem;
+  background-color: var(--bg-primary);
+  background-image: radial-gradient(circle at top left, rgba(255,255,255,0.05), transparent 40%);
 }
+
 .formContainer {
-    width: 100%;
-    max-width: 420px;
-    background-color: var(--bg-surface);
-    padding: 2rem;
-    border-radius: 20px;
-    border: 1px solid var(--border-primary);
+  width: 100%;
+  max-width: 420px;
+  background-color: var(--bg-surface);
+  padding: 2.5rem;
+  border-radius: 20px;
+  border: 1px solid var(--border-primary);
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+.formContainer:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.4);
+}
+
 .title {
-    font-size: 2.5rem;
-    font-weight: 800;
-    text-align: center;
-    margin-bottom: 0.5rem;
+  font-size: 2.4rem;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 0.75rem;
+  background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
+
 .subtitle {
-    font-size: 1.2rem;
-    color: var(--text-secondary);
-    text-align: center;
-    margin-bottom: 2.5rem;
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+  text-align: center;
+  margin-bottom: 2.5rem;
+  line-height: 1.5;
 }
+
 .input {
-    width: 100%; padding: 1.1rem; margin-bottom: 1rem;
-    background-color: var(--bg-primary); border: 1px solid var(--border-primary);
-    border-radius: 12px; color: var(--text-primary); font-size: 1.1rem;
-    box-sizing: border-box; transition: border-color 0.2s, box-shadow 0.2s;
+  width: 100%;
+  padding: 1.1rem 1.25rem;
+  margin-bottom: 1rem;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-primary);
+  border-radius: 12px;
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
 }
 .input:focus {
-    outline: none; border-color: var(--gradient-start);
-    box-shadow: 0 0 15px var(--glow-color);
+  outline: none;
+  border-color: var(--gradient-start);
+  box-shadow: 0 0 15px var(--glow-color);
+  transform: scale(1.02);
 }
+
 .buttonGroup {
-    display: flex; flex-direction: column-reverse; gap: 1rem; margin-top: 1rem;
-}
-.button, .secondaryButton, .googleButton {
-    width: 100%; padding: 1rem; border-radius: 12px; font-size: 1.1rem;
-    font-weight: 600; cursor: pointer; box-sizing: border-box;
-}
-.button {
-    border: none; color: white;
-    background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
-}
-.secondaryButton {
-    border: 1px solid var(--border-primary); color: var(--text-primary);
-    background-color: transparent;
-}
-.separator {
-    height: 1px; background-color: var(--border-primary); margin: 2rem 0;
-    position: relative; display: flex; align-items: center; justify-content: center;
-}
-.separatorText {
-    position: absolute; background-color: var(--bg-surface);
-    padding: 0 1rem; color: var(--text-secondary);
-}
-.googleButton {
-    border: 1px solid var(--border-primary); color: var(--text-primary);
-    background-color: var(--bg-surface);
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 1rem;
+  margin-top: 1rem;
 }
 @media (min-width: 640px) {
-    .formContainer { padding: 3.5rem; }
-    .buttonGroup { flex-direction: row; }
+  .formContainer { padding: 3.5rem; }
+  .buttonGroup { flex-direction: row; }
+}
+
+.button, .secondaryButton, .googleButton {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+.button {
+  border: none;
+  color: white;
+  background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+  box-shadow: 0 0 10px var(--gradient-start);
+}
+.button:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 20px var(--glow-color);
+}
+
+.secondaryButton {
+  border: 1px solid var(--border-primary);
+  color: var(--text-primary);
+  background-color: transparent;
+}
+.secondaryButton:hover {
+  background-color: var(--bg-surface-hover);
+  border-color: var(--gradient-start);
+  box-shadow: 0 0 10px var(--glow-color);
+}
+
+.separator {
+  height: 1px;
+  background-color: var(--border-primary);
+  margin: 2rem 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.separatorText {
+  position: absolute;
+  background-color: var(--bg-surface);
+  padding: 0 1rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.googleButton {
+  border: 1px solid var(--border-primary);
+  color: var(--text-primary);
+  background-color: var(--bg-surface);
+}
+.googleButton:hover {
+  border-color: var(--gradient-start);
+  box-shadow: 0 0 10px var(--glow-color);
+  transform: scale(1.03);
+}
+.googleIcon {
+  height: 20px;
+  width: 20px;
+  margin-right: 0.75rem;
+  vertical-align: middle;
 }

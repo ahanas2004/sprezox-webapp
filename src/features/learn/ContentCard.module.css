@@ -7,13 +7,17 @@
     display: flex;
     flex-direction: column;
 }
-.card:hover { transform: translateY(-5px); box-shadow: 0 0 40px var(--glow-color); }
+.card:hover { 
+    transform: translateY(-6px); 
+    box-shadow: 0 0 45px rgba(79, 70, 229, 0.35); 
+}
 
 .mediaContainer {
     position: relative;
     aspect-ratio: 16/9;
     background-color: #000;
     overflow: hidden;
+    border-radius: var(--radius-md);
 }
 
 .videoPlayer, .thumbnail {
@@ -23,9 +27,9 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 0.4s ease, filter 0.3s ease;
 }
 
-/* This is the new clickable thumbnail area */
 .thumbnailButton {
     width: 100%;
     height: 100%;
@@ -34,23 +38,40 @@
     cursor: pointer;
     position: relative;
     display: block;
+    overflow: hidden;
+    border-radius: var(--radius-md);
 }
+
 .thumbnailButton .thumbnail {
-    transition: transform 0.4s ease;
+    transition: transform 0.4s ease, filter 0.3s ease;
 }
 .thumbnailButton:hover .thumbnail {
     transform: scale(1.05);
+    filter: brightness(1.1);
 }
 
 .mediaPlaceholder { 
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    display: flex; align-items: center; justify-content: center;
+    position: absolute; 
+    top: 0; left: 0; 
+    width: 100%; height: 100%;
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
 }
-.mediaIcon { color: var(--text-secondary); opacity: 0.5; z-index: 1; }
+.mediaIcon { 
+    color: var(--text-secondary); 
+    opacity: 0.5; 
+    z-index: 1; 
+    font-size: 2rem;
+}
 
 .glow { 
-    position: absolute; top: 50%; left: 50%; width: 200%; height: 200%; 
-    background: radial-gradient(circle, rgba(79, 70, 229, 0.3) 0%, rgba(79, 70, 229, 0) 60%); 
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    width: 200%; 
+    height: 200%; 
+    background: radial-gradient(circle, rgba(79, 70, 229, 0.35) 0%, rgba(79, 70, 229, 0) 60%); 
     transform: translate(-50%, -50%); 
     transition: opacity 0.5s ease;
     opacity: 0;
@@ -69,24 +90,75 @@
     z-index: 2;
     pointer-events: none;
     color: white;
+    font-size: 2rem;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 .thumbnailButton:hover .playOverlay {
     opacity: 1;
+    transform: scale(1.05);
 }
 
-.infoContainer { padding: var(--space-6); }
-.header { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-4); }
-.avatar { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--border-primary); }
-.creator { font-weight: 600; font-size: var(--font-size-base); }
-.title { font-size: var(--font-size-h3); font-weight: 700; margin: 0; line-height: 1.3; }
-.description { font-size: var(--font-size-base); color: var(--text-secondary); line-height: 1.6; margin-top: var(--space-2); }
-.actions { display: flex; gap: var(--space-6); margin-top: var(--space-6); color: var(--text-secondary); }
+.infoContainer { 
+    padding: var(--space-6); 
+    display: flex; 
+    flex-direction: column; 
+    gap: var(--space-4);
+}
+
+.header { 
+    display: flex; 
+    align-items: center; 
+    gap: var(--space-3); 
+    margin-bottom: var(--space-4); 
+}
+
+.avatar { 
+    width: 40px; 
+    height: 40px; 
+    border-radius: 50%; 
+    border: 2px solid var(--border-primary); 
+}
+
+.creator { 
+    font-weight: 600; 
+    font-size: var(--font-size-base); 
+}
+
+.title { 
+    font-size: var(--font-size-h3); 
+    font-weight: 700; 
+    margin: 0; 
+    line-height: 1.3; 
+}
+
+.description { 
+    font-size: var(--font-size-base); 
+    color: var(--text-secondary); 
+    line-height: 1.6; 
+    margin-top: var(--space-2); 
+    flex-grow: 1; 
+}
+
+.actions { 
+    display: flex; 
+    gap: var(--space-6); 
+    margin-top: var(--space-6); 
+    color: var(--text-secondary); 
+}
+
 .actionButton { 
-    background: none; border: none; color: inherit; cursor: pointer; 
+    background: none; 
+    border: none; 
+    color: inherit; 
+    cursor: pointer; 
     transition: color 0.2s ease, transform 0.2s ease;
-    display: flex; align-items: center; gap: var(--space-2);
+    display: flex; 
+    align-items: center; 
+    gap: var(--space-2);
     font-size: var(--font-size-base);
 }
-.actionButton:hover { color: var(--text-primary); transform: scale(1.1); }
+.actionButton:hover { 
+    color: var(--text-primary); 
+    transform: scale(1.1); 
+}

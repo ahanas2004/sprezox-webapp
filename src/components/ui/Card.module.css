@@ -1,6 +1,61 @@
+/* =========================================================
+   Sprezox Card Styles (Enhanced Apple-Inspired Edition)
+   Subtle glassmorphism, fluid hover, smooth shadow depth,
+   responsive polish, and minimal elegance.
+   ========================================================= */
+
 .card {
   background-color: var(--bg-surface);
-  padding: var(--space-8);
-  border-radius: var(--radius-lg);
   border: 1px solid var(--border-primary);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+
+  /* Apple-inspired glass look */
+  backdrop-filter: saturate(160%) blur(18px);
+  -webkit-backdrop-filter: saturate(160%) blur(18px);
+
+  /* Soft depth */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  transition:
+    transform 300ms cubic-bezier(.2, .9, .22, 1),
+    box-shadow 320ms cubic-bezier(.4, 0, .2, 1),
+    background-color 200ms ease;
+  will-change: transform, box-shadow, background-color;
+}
+
+/* Hover interaction */
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.15);
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+/* Active click feedback */
+.card:active {
+  transform: scale(0.98);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+/* Focus accessibility (keyboard nav) */
+.card:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.25),
+              0 8px 28px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+/* Optional media responsiveness */
+@media (max-width: 600px) {
+  .card {
+    padding: calc(var(--space-8) * 0.75);
+    border-radius: calc(var(--radius-lg) * 0.8);
+  }
+}
+
+/* Motion reduction for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none !important;
+    transform: none !important;
+  }
 }

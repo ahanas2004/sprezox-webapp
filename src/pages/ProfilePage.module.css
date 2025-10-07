@@ -1,3 +1,6 @@
+/* --- SPREZOX PROFILE / ROLE / DASHBOARD STYLES --- */
+
+/* Profile Header */
 .profileHeader {
     display: flex;
     justify-content: space-between;
@@ -7,6 +10,7 @@
     margin-bottom: -2rem; /* Pulls the card up visually */
 }
 
+/* Sign Out Button */
 .signOutButton {
     background: #B91C1C;
     color: white;
@@ -16,7 +20,7 @@
     font-size: var(--font-size-base);
     font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.2s, transform 0.2s;
+    transition: background-color 0.2s ease, transform 0.2s ease;
 }
 .signOutButton:hover {
     background: #991B1B;
@@ -61,7 +65,7 @@
     align-items: center;
     justify-content: center;
     gap: var(--space-4);
-    transition: background-color 0.2s, border-color 0.2s, transform 0.2s;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 }
 .roleButton:hover {
     transform: translateY(-5px);
@@ -95,17 +99,27 @@
     display: flex;
     align-items: center;
     gap: var(--space-2);
-    transition: color 0.2s, border-color 0.2s;
+    transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 }
 .editButton:hover {
     color: var(--text-primary);
     border-color: var(--text-primary);
+    transform: translateY(-2px);
 }
+
+/* Empty State */
 .emptyState {
     font-size: var(--font-size-lg);
     color: var(--text-secondary);
     text-align: center;
     margin-top: var(--space-12);
+    animation: fadeIn 0.4s ease;
+}
+
+/* Fade-in animation for empty/error messages */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 /* --- RESPONSIVENESS --- */

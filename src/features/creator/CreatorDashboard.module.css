@@ -1,38 +1,77 @@
 .dashboardHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: var(--space-8);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-8);
+  padding: 0 0.5rem;
+  border-bottom: 1px solid var(--border-primary);
+  padding-bottom: var(--space-4);
 }
+
 .dashboardTitle {
-    font-size: var(--font-size-h2);
-    font-weight: 700;
-    margin: 0;
+  font-size: var(--font-size-h2);
+  font-weight: 800;
+  margin: 0;
+  background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 0.5px;
 }
+
 .uploadButton {
-    background: linear-gradient(90deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: transform 0.2s;
+  background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 54px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.25), 0 0 10px var(--glow-color);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 .uploadButton:hover {
-    transform: scale(1.1);
+  transform: scale(1.1) rotate(3deg);
+  box-shadow: 0 0 25px var(--glow-color);
 }
+.uploadButton:active {
+  transform: scale(0.96);
+}
+
 .videoGrid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--space-8);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-8);
+  padding-top: var(--space-6);
+  transition: all 0.3s ease;
 }
+
+.videoGrid > * {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.videoGrid > *:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.35);
+}
+
 .emptyState {
-    font-size: var(--font-size-lg);
-    color: var(--text-secondary);
-    text-align: center;
-    margin-top: var(--space-12);
+  font-size: var(--font-size-lg);
+  color: var(--text-secondary);
+  text-align: center;
+  margin-top: var(--space-12);
+  padding: var(--space-8);
+  border: 1px dashed var(--border-primary);
+  border-radius: var(--radius-md);
+  background-color: rgba(255,255,255,0.02);
+  transition: background-color 0.3s ease;
+}
+.emptyState:hover {
+  background-color: rgba(255,255,255,0.05);
 }
