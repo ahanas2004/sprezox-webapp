@@ -12,8 +12,10 @@ import ProtectedRoute from './components/core/ProtectedRoute';
 export default function App() {
   return (
     <ThemeProvider>
-      <AuthProvider>
-        <Router>
+      {/* THE FIX: The Router must wrap the AuthProvider so that the AuthContext
+          can use navigation hooks like useNavigate. */}
+      <Router>
+        <AuthProvider>
           <Routes>
             <Route path="/signin" element={<SignInScreen />} />
             <Route element={<ProtectedRoute />}>
@@ -24,8 +26,8 @@ export default function App() {
               </Route>
             </Route>
           </Routes>
-        </Router>
-      </AuthProvider>
+        </AuthProvider>
+      </Router>
     </ThemeProvider>
   );
 }
