@@ -1,3 +1,55 @@
+.form, .field { display: flex; flex-direction: column; }
+.form { gap: 1.5rem; }
+.label { font-size: 1rem; font-weight: 500; margin-bottom: 0.5rem; color: var(--text-secondary); }
+.input, .textarea {
+    width: 100%; padding: 0.75rem 1rem; background-color: var(--background-primary);
+    border: 1px solid var(--border-primary); border-radius: 8px; color: var(--text-primary);
+    font-size: 1rem; box-sizing: border-box;
+}
+.textarea { min-height: 100px; resize: vertical; }
+.radioGroup { display: flex; gap: 1rem; flex-wrap: wrap; }
+.radioGroup button {
+    background: var(--background-primary); border: 1px solid var(--border-primary);
+    color: var(--text-secondary); padding: 0.5rem 1rem; border-radius: 99px; cursor: pointer;
+}
+.radioGroup button.active { background: var(--gradient-start); color: white; border-color: var(--gradient-start); }
+
+.buttonContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.5rem;
+    gap: 1rem;
+}
+
+.saveButton {
+    background: linear-gradient(90deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+    color: white; border: none; border-radius: 8px; padding: 0.8rem 1.5rem;
+    font-size: 1rem; font-weight: 600; cursor: pointer;
+}
+.saveButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.deleteButton {
+    background-color: #B91C1C;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+}
+.deleteButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+.deleteButton:hover:not(:disabled) {
+    background-color: #991B1B;
+}
+
 .form, .field { 
     display: flex; 
     flex-direction: column; 
@@ -82,4 +134,83 @@
 .saveButton:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(79,70,229,0.35);
+}
+
+.form { display: flex; flex-direction: column; gap: 1.5rem; }
+.field { display: flex; flex-direction: column; }
+.label { font-size: 1rem; font-weight: 500; margin-bottom: 0.5rem; color: var(--text-secondary); }
+.input, .textarea {
+    width: 100%; padding: 0.75rem 1rem; background-color: var(--background-primary);
+    border: 1px solid var(--border-primary); border-radius: 8px; color: var(--text-primary);
+    font-size: 1rem; box-sizing: border-box;
+}
+.textarea { min-height: 100px; resize: vertical; }
+
+.formHeader {
+    margin-bottom: 1rem;
+}
+
+.backButton {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    padding: 0;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.2s;
+}
+.backButton:hover {
+    color: var(--text-primary);
+}
+
+.radioGroup { display: flex; gap: 1rem; flex-wrap: wrap; }
+.radioGroup button {
+    background: var(--background-primary); border: 1px solid var(--border-primary);
+    color: var(--text-secondary); padding: 0.5rem 1rem; border-radius: 99px; cursor: pointer;
+}
+.radioGroup button.active { background: var(--gradient-start); color: white; border-color: var(--gradient-start); }
+
+.buttonContainer {
+    display: flex;
+    flex-direction: column; /* Mobile-first stack */
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.5rem;
+    gap: 1rem;
+}
+
+.saveButton {
+    background: linear-gradient(90deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+    color: white; border: none; border-radius: 8px; padding: 0.8rem 1.5rem;
+    font-size: 1rem; font-weight: 600; cursor: pointer;
+    width: 100%;
+}
+.saveButton:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.deleteButton {
+    background-color: #B91C1C;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    width: 100%;
+}
+.deleteButton:disabled { opacity: 0.5; cursor: not-allowed; }
+.deleteButton:hover:not(:disabled) { background-color: #991B1B; }
+
+/* Responsive adjustments for tablet and up */
+@media (min-width: 640px) {
+    .buttonContainer {
+        flex-direction: row;
+    }
+    .saveButton, .deleteButton {
+        width: auto;
+    }
 }

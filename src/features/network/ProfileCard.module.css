@@ -1,109 +1,33 @@
 .card {
-  background-color: var(--background-surface);
-  border-radius: 20px;
+  background-color: var(--bg-surface);
+  border-radius: var(--radius-lg);
   border: 1px solid var(--border-primary);
-  padding: 2rem;
+  padding: var(--space-8);
   display: flex;
   flex-direction: column;
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  transition: box-shadow 0.3s, transform 0.3s;
 }
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(79, 70, 229, 0.2);
-}
-
-.header {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-}
-
-.avatar {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  border: 2px solid var(--border-primary);
-  transition: transform 0.3s ease;
-}
-.avatar:hover {
-  transform: scale(1.05);
-}
-
-.nameContainer {
-  display: flex;
-  flex-direction: column;
-}
-
-.name {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin: 0;
-}
-
-.role {
-  font-size: 1rem;
-  color: var(--text-secondary);
-  margin: 0;
-}
-
-.bio {
-  font-size: 1.1rem;
-  color: var(--text-secondary);
-  line-height: 1.6;
-  flex-grow: 1;
-  margin-bottom: 1.5rem;
-}
-
-.interests {
-  margin-bottom: 1.5rem;
-}
-
-.interestLabel {
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: var(--text-muted);
-}
-
-.tagContainer {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
-}
-
+.header { display: flex; align-items: center; gap: var(--space-4); margin-bottom: var(--space-6); }
+.avatar { width: 70px; height: 70px; border-radius: 50%; object-fit: cover; }
+.nameContainer { display: flex; flex-direction: column; }
+.name { font-size: var(--font-size-h3); font-weight: 700; margin: 0; line-height: 1.2; }
+.role { font-size: var(--font-size-base); color: var(--text-secondary); margin: 0; text-transform: capitalize; }
+.bio { font-size: var(--font-size-base); color: var(--text-secondary); line-height: 1.6; flex-grow: 1; margin-bottom: var(--space-6); }
+.interests { margin-bottom: var(--space-6); }
+.interestLabel { font-size: var(--font-size-sm); font-weight: 500; color: var(--text-muted); }
+.tagContainer { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-2); }
 .tag {
   background-color: var(--border-primary);
   color: var(--text-primary);
-  padding: 0.25rem 0.75rem;
+  padding: var(--space-1) var(--space-3);
   border-radius: 999px;
-  font-size: 0.9rem;
+  font-size: var(--font-size-sm);
   font-weight: 500;
-  transition: background-color 0.3s ease, transform 0.2s ease;
 }
-.tag:hover {
-  background-color: var(--gradient-start);
-  color: white;
-  transform: translateY(-2px);
-}
-
 .connectButton {
   background: linear-gradient(90deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
-  color: white;
-  border: none;
-  border-radius: 10px;
-  padding: 0.8rem 1.5rem;
-  font-size: 1.1rem;
-  font-weight: 600;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  width: 100%;
-  transition: transform 0.2s ease, box-shadow 0.3s ease;
-}
-.connectButton:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(79, 70, 229, 0.3);
+  color: white; border: none; border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-6); font-size: var(--font-size-base); font-weight: 600;
+  cursor: pointer; display: flex; align-items: center;
+  justify-content: center; gap: var(--space-2); width: 100%;
 }

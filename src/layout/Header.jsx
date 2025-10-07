@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Home, Users, User, Menu, X } from 'lucide-react';
+import { Home, Users, User, Menu, X, Gem } from 'lucide-react'; // <-- ADD GEM ICON
 import styles from './Header.module.css';
 
 export default function Header() {
@@ -15,9 +15,11 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [isMenuOpen]);
 
+  // Updated navigation links
   const navLinksData = [
     { to: "/", icon: <Home className={styles.navIcon} />, label: "Learn" },
     { to: "/network", icon: <Users className={styles.navIcon} />, label: "Network" },
+    { to: "/ideas", icon: <Gem className={styles.navIcon} />, label: "Ideas" }, // <-- ADD THIS
     { to: "/profile", icon: <User className={styles.navIcon} />, label: "Profile" },
   ];
 

@@ -3,48 +3,61 @@ import { useAuth } from '../context/AuthContext';
 import { supabase } from '../lib/supabase';
 import styles from './ProfilePage.module.css';
 import { motion } from 'framer-motion';
-import { User, Briefcase, Plus, Edit, ArrowLeft } from 'lucide-react';
+import { User, Briefcase, Plus, Edit, ArrowLeft, Heart, Star } from 'lucide-react';
 import Modal from '../components/ui/Modal';
 import InvestorSetupForm from '../features/investor/InvestorSetupForm';
 import CreatorDashboard from '../features/creator/CreatorDashboard';
 import UploadForm from '../features/creator/UploadForm';
+import MentorSetupForm from '../features/Mentor/MentorSetupForm';
+import StudentForm from '../features/startup/StudentForm';
+import EntrepreneurForm from '../features/startup/EntrepreneurForm';
 
-// --- Sub-Components Defined within ProfilePage for clarity ---
+// --- Sub-Components ---
 
 const RoleSelection = ({ onSelect }) => (
-    <motion.div 
-        className={styles.roleSelectionContainer}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-    >
-        <h2 className={styles.roleTitle}>Choose Your Role</h2>
+    <motion.div className={styles.roleSelectionContainer} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+        <h2 className={styles.roleTitle}>Choose Your Primary Role</h2>
         <p className={styles.roleSubtitle}>Select how you want to participate in the SPREZOX ecosystem.</p>
         <div className={styles.roleOptions}>
-            <motion.button className={styles.roleButton} onClick={() => onSelect('creator')} whileHover={{ y: -5 }}>
-                <User size={32} />
-                <span>I'm a Creator</span>
-            </motion.button>
-            <motion.button className={styles.roleButton} onClick={() => onSelect('investor')} whileHover={{ y: -5 }}>
-                <Briefcase size={32} />
-                <span>I'm an Investor</span>
-            </motion.button>
+            <motion.button className={styles.roleButton} onClick={() => onSelect('creator')} whileHover={{ y: -5 }}><User size={32} /><span>I'm a Creator</span></motion.button>
+            <motion.button className={styles.roleButton} onClick={() => onSelect('investor')} whileHover={{ y: -5 }}><Briefcase size={32} /><span>I'm an Investor</span></motion.button>
+            <motion.button className={styles.roleButton} onClick={() => onSelect('mentor')} whileHover={{ y: -5 }}><Heart size={32} /><span>I'm a Mentor</span></motion.button>
+            <motion.button className={styles.roleButton} onClick={() => onSelect('startup')} whileHover={{ y: -5 }}><Star size={32} /><span>I have a Startup/Idea</span></motion.button>
         </div>
     </motion.div>
 );
 
 const InvestorDashboard = ({ onEdit, onGoBack }) => (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
         <div className={styles.dashboardHeader}>
-             <button onClick={onGoBack} className={styles.backButton}>
-                <ArrowLeft size={20} /> Go Back
-            </button>
+             <button onClick={onGoBack} className={styles.backButton}><ArrowLeft size={20} /> Go Back</button>
             <h2 className={styles.dashboardTitle}>Investor Profile</h2>
-            <button className={styles.editButton} onClick={onEdit}>
-                <Edit size={18}/> Edit
-            </button>
+            <button className={styles.editButton} onClick={onEdit}><Edit size={18}/> Edit</button>
         </div>
         <p className={styles.emptyState}>Your investor profile is live and discoverable on the Network page.</p>
+    </motion.div>
+);
+
+const MentorDashboard = ({ onEdit, onGoBack }) => (
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+        <div className={styles.dashboardHeader}>
+             <button onClick={onGoBack} className={styles.backButton}><ArrowLeft size={20} /> Go Back</button>
+            <h2 className={styles.dashboardTitle}>Mentor Profile</h2>
+            <button className={styles.editButton} onClick={onEdit}><Edit size={18}/> Edit</button>
+        </div>
+        <p className={styles.emptyState}>Your mentor profile is live and discoverable on the Network page.</p>
+    </motion.div>
+);
+
+const StartupDashboard = ({ onStudent, onEntrepreneur, onGoBack }) => (
+     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+        <div className={styles.dashboardHeader}>
+            <button onClick={onGoBack} className={styles.backButton}><ArrowLeft size={20} /> Go Back</button>
+        </div>
+        <div className={styles.startupOptions}>
+            <button className={styles.submissionButton} onClick={onStudent}>Submit a Student Idea</button>
+            <button className={styles.submissionButton} onClick={onEntrepreneur}>Submit Your Startup</button>
+        </div>
     </motion.div>
 );
 
@@ -55,53 +68,39 @@ export default function ProfilePage() {
     const [profile, setProfile] = useState(null);
     const [loading, setLoading] = useState(true);
     const [isInvestorModalOpen, setInvestorModalOpen] = useState(false);
+    const [isMentorModalOpen, setMentorModalOpen] = useState(false);
     const [isUploadModalOpen, setUploadModalOpen] = useState(false);
-    const [currentView, setCurrentView] = useState('loading'); // 'loading', 'select', 'creator', 'investor'
+    const [isStudentModalOpen, setStudentModalOpen] = useState(false);
+    const [isEntrepreneurModalOpen, setEntrepreneurModalOpen] = useState(false);
+    
+    const [currentView, setCurrentView] = useState('loading');
 
     const fetchProfile = async () => {
         if (!user) return;
         setLoading(true);
-        const { data, error } = await supabase
-            .from('profiles')
-            .select('*')
-            .eq('id', user.id)
-            .single();
+        const { data, error } = await supabase.from('profiles').select('*').eq('id', user.id).single();
         
         if (error && error.code !== 'PGRST116') {
             console.error('Error fetching profile:', error);
         } else if (data) {
             setProfile(data);
-            setCurrentView(data.role || 'select');
+            setCurrentView(data.role || 'select_role');
         } else {
             setProfile({ id: user.id }); 
-            setCurrentView('select');
+            setCurrentView('select_role');
         }
         setLoading(false);
     };
 
-    // THE CRITICAL FIX IS HERE:
-    // The dependency array is changed from [user] to [user?.id].
-    // This ensures the effect only re-runs when the user's ID changes (i.e., on login/logout),
-    // not on every single render, which was causing the infinite loop.
-    useEffect(() => {
-        if(user?.id) {
-            fetchProfile();
-        }
-    }, [user?.id]);
+    useEffect(() => { if(user) fetchProfile(); }, [user]);
 
     const handleRoleSelect = async (role) => {
-        setCurrentView(role);
-        const { data, error } = await supabase
-            .from('profiles')
-            .upsert({ id: user.id, role: role, updated_at: new Date() })
-            .select()
-            .single();
-
+        const { data, error } = await supabase.from('profiles').upsert({ id: user.id, role }).select().single();
         if (error) {
             alert(error.message);
-            setCurrentView('select'); 
         } else {
-            setProfile(data); 
+            setProfile(data);
+            setCurrentView(role);
         }
     };
 
@@ -109,15 +108,31 @@ export default function ProfilePage() {
         if (loading) return <p>Loading profile...</p>;
         
         switch (currentView) {
-            case 'select':
+            case 'select_role':
                 return <RoleSelection onSelect={handleRoleSelect} />;
+            
             case 'creator':
-                return <CreatorDashboard onUploadClick={() => setUploadModalOpen(true)} user={user} onGoBack={() => setCurrentView('select')} />;
+                return <CreatorDashboard onUploadClick={() => setUploadModalOpen(true)} user={user} onGoBack={() => setCurrentView('select_role')} />;
+            
             case 'investor':
                 if (!profile.is_investor_listed) {
-                    return <InvestorSetupForm profile={profile} onSave={fetchProfile} onGoBack={() => setCurrentView('select')} />;
+                    return <InvestorSetupForm profile={profile} onSave={fetchProfile} onGoBack={() => setCurrentView('select_role')} />;
                 }
-                return <InvestorDashboard onEdit={() => setInvestorModalOpen(true)} onGoBack={() => setCurrentView('select')} />;
+                return <InvestorDashboard onEdit={() => setInvestorModalOpen(true)} onGoBack={() => setCurrentView('select_role')} />;
+
+            case 'mentor':
+                 if (!profile.is_investor_listed) { // Re-using the same flag
+                    return <MentorSetupForm profile={profile} onSave={fetchProfile} onGoBack={() => setCurrentView('select_role')} />;
+                }
+                return <MentorDashboard onEdit={() => setMentorModalOpen(true)} onGoBack={() => setCurrentView('select_role')} />;
+            
+            case 'startup':
+                return <StartupDashboard 
+                            onGoBack={() => setCurrentView('select_role')}
+                            onStudent={() => setStudentModalOpen(true)}
+                            onEntrepreneur={() => setEntrepreneurModalOpen(true)}
+                        />;
+
             default:
                 return <RoleSelection onSelect={handleRoleSelect} />;
         }
@@ -138,15 +153,22 @@ export default function ProfilePage() {
                     {renderContent()}
                 </div>
             </div>
-
-            <Modal isOpen={isInvestorModalOpen} onClose={() => setInvestorModalOpen(false)} title="Edit Investor Profile">
+            
+            <Modal isOpen={isInvestorModalOpen} onClose={() => setInvestorModalOpen(false)} title="Investor Profile">
                 <InvestorSetupForm profile={profile} onSave={fetchProfile} onClose={() => setInvestorModalOpen(false)} />
             </Modal>
-
-            <Modal isOpen={isUploadModalOpen} onClose={() => setUploadModalOpen(false)} title="Upload New Content">
+            <Modal isOpen={isMentorModalOpen} onClose={() => setMentorModalOpen(false)} title="Mentor Profile">
+                <MentorSetupForm profile={profile} onSave={fetchProfile} onClose={() => setMentorModalOpen(false)} />
+            </Modal>
+            <Modal isOpen={isUploadModalOpen} onClose={() => setUploadModalOpen(false)} title="Upload Content">
                 <UploadForm onUpload={fetchProfile} onClose={() => setUploadModalOpen(false)} />
+            </Modal>
+            <Modal isOpen={isStudentModalOpen} onClose={() => setStudentModalOpen(false)} title="Submit Student Idea">
+                <StudentForm onSave={fetchProfile} onClose={() => setStudentModalOpen(false)} />
+            </Modal>
+            <Modal isOpen={isEntrepreneurModalOpen} onClose={() => setEntrepreneurModalOpen(false)} title="Submit Your Startup">
+                <EntrepreneurForm onSave={fetchProfile} onClose={() => setEntrepreneurModalOpen(false)} />
             </Modal>
         </>
     );
 }
-

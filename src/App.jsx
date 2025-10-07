@@ -8,26 +8,26 @@ import NetworkPage from './pages/NetworkPage';
 import ProfilePage from './pages/ProfilePage';
 import SignInScreen from './features/auth/SignInScreen';
 import ProtectedRoute from './components/core/ProtectedRoute';
+import IdeasPage from './pages/IdeasPage'; // <-- ADD THIS IMPORT
 
 export default function App() {
   return (
     <ThemeProvider>
-      {/* THE FIX: The Router must wrap the AuthProvider so that the AuthContext
-          can use navigation hooks like useNavigate. */}
-      <Router>
-        <AuthProvider>
+      <AuthProvider>
+        <Router>
           <Routes>
             <Route path="/signin" element={<SignInScreen />} />
             <Route element={<ProtectedRoute />}>
               <Route element={<RootLayout />}>
                 <Route index element={<LearnPage />} />
                 <Route path="/network" element={<NetworkPage />} />
+                <Route path="/ideas" element={<IdeasPage />} /> {/* <-- ADD THIS ROUTE */}
                 <Route path="/profile" element={<ProfilePage />} />
               </Route>
             </Route>
           </Routes>
-        </AuthProvider>
-      </Router>
+        </Router>
+      </AuthProvider>
     </ThemeProvider>
   );
 }

@@ -1,16 +1,18 @@
-/* --- SPREZOX PROFILE / ROLE / DASHBOARD STYLES --- */
+/* --- SPREZOX PROFILE PAGE STYLES (DEFINITIVE) --- */
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+}
 
-/* Profile Header */
 .profileHeader {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     flex-wrap: wrap;
-    gap: 1rem;
-    margin-bottom: -2rem; /* Pulls the card up visually */
+    gap: 1.5rem;
+    margin-bottom: -2rem;
 }
 
-/* Sign Out Button */
 .signOutButton {
     background: #B91C1C;
     color: white;
@@ -20,7 +22,7 @@
     font-size: var(--font-size-base);
     font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.2s ease;
+    transition: background-color 0.2s, transform 0.2s;
 }
 .signOutButton:hover {
     background: #991B1B;
@@ -34,7 +36,6 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: 100%;
     min-height: 300px;
 }
 .roleTitle {
@@ -48,8 +49,8 @@
     margin-bottom: var(--space-12);
 }
 .roleOptions {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr; /* Stacked on mobile */
     gap: var(--space-6);
 }
 .roleButton {
@@ -65,27 +66,48 @@
     align-items: center;
     justify-content: center;
     gap: var(--space-4);
-    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    transition: background-color 0.2s, border-color 0.2s, transform 0.2s;
 }
 .roleButton:hover {
     transform: translateY(-5px);
     border-color: var(--gradient-start);
-    background-color: var(--border-primary);
+    background-color: var(--bg-surface);
 }
 
-/* --- Dashboards & Setup --- */
+/* --- Dashboards & Sub-selections --- */
 .dashboardHeader {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: auto 1fr auto; /* Back | Title | Action */
     align-items: center;
     margin-bottom: var(--space-8);
-    flex-wrap: wrap;
     gap: var(--space-4);
 }
 .dashboardTitle {
     font-size: var(--font-size-h2);
     font-weight: 700;
     margin: 0;
+    text-align: center;
+    grid-column: 2 / 3;
+}
+.backButton {
+    background: none;
+    border: 1px solid var(--border-primary);
+    color: var(--text-secondary);
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    transition: color 0.2s, border-color 0.2s;
+    justify-self: start;
+    grid-column: 1 / 2;
+}
+.backButton:hover {
+    color: var(--text-primary);
+    border-color: var(--text-primary);
 }
 .editButton {
     background: none;
@@ -99,35 +121,71 @@
     display: flex;
     align-items: center;
     gap: var(--space-2);
-    transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    transition: color 0.2s, border-color 0.2s;
+    justify-self: end;
+    grid-column: 3 / 4;
 }
 .editButton:hover {
     color: var(--text-primary);
     border-color: var(--text-primary);
-    transform: translateY(-2px);
 }
-
-/* Empty State */
 .emptyState {
     font-size: var(--font-size-lg);
     color: var(--text-secondary);
     text-align: center;
     margin-top: var(--space-12);
-    animation: fadeIn 0.4s ease;
 }
 
-/* Fade-in animation for empty/error messages */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(5px); }
-    to { opacity: 1; transform: translateY(0); }
+/* --- NEW STYLES for Mentor and Startup Buttons --- */
+.managementButton {
+    background: linear-gradient(90deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    width: 100%;
+}
+
+.startupOptions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+    padding: var(--space-8) 0;
+}
+.submissionButton {
+    background-color: var(--bg-surface);
+    color: var(--text-primary);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+
+.managementButton:hover, .submissionButton:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+.submissionButton:hover {
+    border-color: var(--gradient-start);
 }
 
 /* --- RESPONSIVENESS --- */
 @media (min-width: 768px) {
-    .roleOptions {
+    .profileHeader {
         flex-direction: row;
+        align-items: center;
     }
-    .roleButton {
-        flex: 1;
+    .roleOptions {
+        grid-template-columns: 1fr 1fr;
+    }
+    .startupOptions {
+        grid-template-columns: 1fr 1fr;
     }
 }
