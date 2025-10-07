@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../context/AuthContext';   
+import { useAuth } from '../context/AuthContext';
 import { supabase } from '../lib/supabase';
 import styles from './ProfilePage.module.css';
 import { motion } from 'framer-motion';
@@ -73,36 +73,35 @@ export default function ProfilePage() {
             setProfile(data);
             setCurrentView(data.role || 'select');
         } else {
-            setProfile({ id: user.id }); // Create a placeholder for a new user
+            setProfile({ id: user.id }); 
             setCurrentView('select');
         }
         setLoading(false);
     };
 
+    // THE CRITICAL FIX IS HERE:
+    // The dependency array is changed from [user] to [user?.id].
+    // This ensures the effect only re-runs when the user's ID changes (i.e., on login/logout),
+    // not on every single render, which was causing the infinite loop.
     useEffect(() => {
-        if(user) {
+        if(user?.id) {
             fetchProfile();
         }
-    }, [user]);
+    }, [user?.id]);
 
     const handleRoleSelect = async (role) => {
-        // Optimistically update UI to show the correct dashboard/form
         setCurrentView(role);
+        const { data, error } = await supabase
+            .from('profiles')
+            .upsert({ id: user.id, role: role, updated_at: new Date() })
+            .select()
+            .single();
 
-        // Update the database in the background
-        if (!profile || profile.role !== role) {
-            const { data, error } = await supabase
-                .from('profiles')
-                .upsert({ id: user.id, role: role, updated_at: new Date() })
-                .select()
-                .single();
-
-            if (error) {
-                alert(error.message);
-                setCurrentView('select'); // Revert on error
-            } else {
-                setProfile(data); // Update profile state with DB data
-            }
+        if (error) {
+            alert(error.message);
+            setCurrentView('select'); 
+        } else {
+            setProfile(data); 
         }
     };
 
@@ -150,3 +149,4 @@ export default function ProfilePage() {
         </>
     );
 }
+
