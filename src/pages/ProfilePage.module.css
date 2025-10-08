@@ -136,7 +136,7 @@
     margin-top: var(--space-12);
 }
 
-/* --- NEW STYLES for Mentor and Startup Buttons --- */
+/* --- STYLES FOR MENTOR & STARTUP BUTTONS --- */
 .managementButton {
     background: linear-gradient(90deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
     color: white;
@@ -149,7 +149,6 @@
     transition: transform 0.2s, box-shadow 0.2s;
     width: 100%;
 }
-
 .startupOptions {
     display: grid;
     grid-template-columns: 1fr;
@@ -174,6 +173,12 @@
 }
 .submissionButton:hover {
     border-color: var(--gradient-start);
+}
+
+.submissionList {
+    margin-top: var(--space-12);
+    display: grid;
+    gap: var(--space-6);
 }
 
 /* --- RESPONSIVENESS --- */
