@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
 import styles from './MentorSetupForm.module.css';
+import { ArrowLeft } from 'lucide-react'; // Import the icon
 
-export default function MentorSetupForm({ profile, onSave, onClose }) {
+export default function MentorSetupForm({ profile, onSave, onClose, onGoBack }) {
     const { user } = useAuth();
     const [mentorType, setMentorType] = useState(profile?.mentor_type || 'accelerator');
     const [formData, setFormData] = useState(profile?.mentor_details || {});
@@ -23,7 +24,7 @@ export default function MentorSetupForm({ profile, onSave, onClose }) {
                 role: 'mentor', 
                 mentor_type: mentorType, 
                 mentor_details: formData,
-                is_investor_listed: true // We reuse this flag to make them appear in the Network
+                is_investor_listed: true // Reusing this flag to list them in the Network
             })
             .eq('id', user.id);
 
@@ -38,14 +39,14 @@ export default function MentorSetupForm({ profile, onSave, onClose }) {
     };
 
     const handleDelete = async () => {
-        if (!window.confirm('Are you sure you want to un-list your mentor profile? This will remove you from the public Network page.')) {
+        if (!window.confirm('Are you sure you want to un-list your mentor profile?')) {
             return;
         }
         setIsDeleting(true);
         const { error } = await supabase
             .from('profiles')
             .update({
-                is_investor_listed: false, // Un-list them
+                is_investor_listed: false,
                 mentor_type: null,
                 mentor_details: null
             })
@@ -63,6 +64,13 @@ export default function MentorSetupForm({ profile, onSave, onClose }) {
 
     return (
         <form className={styles.form} onSubmit={handleSave}>
+            {/* THE FIX: Back button added to the top of the form */}
+            <div className={styles.formHeader}>
+                 <button type="button" onClick={onGoBack} className={styles.backButton}>
+                    <ArrowLeft size={20} /> Go Back
+                </button>
+            </div>
+            
             <div className={styles.field}>
                 <label className={styles.label}>You are a...</label>
                 <div className={styles.radioGroup}>

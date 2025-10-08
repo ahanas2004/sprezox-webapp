@@ -102,6 +102,28 @@
     cursor: not-allowed;
 }
 
+.formHeader {
+    margin-bottom: 1rem;
+}
+
+.backButton {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    padding: 0;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.2s;
+}
+
+.backButton:hover {
+    color: var(--text-primary);
+}
+
 /* --- RESPONSIVENESS --- */
 @media (min-width: 640px) {
     .buttonContainer {
