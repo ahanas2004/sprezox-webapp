@@ -1,0 +1,82 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+}
+.header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+    padding-bottom: var(--space-6);
+    border-bottom: 1px solid var(--border-primary);
+}
+.avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.headerText {
+    display: flex;
+    flex-direction: column;
+}
+.name {
+    font-size: var(--font-size-h2);
+    font-weight: 700;
+    margin: 0;
+}
+.type {
+    font-size: var(--font-size-lg);
+    color: var(--text-secondary);
+    margin: 0;
+    text-transform: capitalize;
+}
+.section {
+    display: flex;
+    flex-direction: column;
+}
+.sectionTitle {
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 0 var(--space-4) 0;
+}
+.description {
+    font-size: var(--font-size-base);
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin: 0;
+}
+.tagContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+}
+.tag {
+    background-color: var(--border-primary);
+    color: var(--text-primary);
+    padding: var(--space-2) var(--space-4);
+    border-radius: 99px;
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+}
+.contactGrid {
+    display: grid;
+    gap: var(--space-4);
+}
+.contactItem {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: var(--font-size-base);
+}
+.contactItem a {
+    color: var(--gradient-start);
+    text-decoration: none;
+    font-weight: 500;
+}
+.contactIcon {
+    color: var(--text-secondary);
+}

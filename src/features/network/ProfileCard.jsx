@@ -1,12 +1,15 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { UserPlus } from 'lucide-react';
 import styles from './ProfileCard.module.css';
 
-// This is now a "dumb" presentational component.
-export default function ProfileCard({ name, type, description, focus, avatar }) {
+// THE FIX: The component now accepts an `onClick` prop.
+export default function ProfileCard({ name, type, description, focus, avatar, onClick }) {
   return (
-    <motion.div className={styles.card} whileHover={{ y: -5, boxShadow: '0 0 30px var(--glow-color)' }}>
+    <motion.div 
+        className={styles.card} 
+        onClick={onClick}
+        whileHover={{ y: -5, boxShadow: '0 0 30px var(--glow-color)' }}
+    >
       <div className={styles.header}>
         <img src={avatar || `https://placehold.co/100x100/2a2a2a/E5E7EB?text=${name?.charAt(0)}`} alt={name} className={styles.avatar} />
         <div className={styles.nameContainer}>
@@ -19,13 +22,16 @@ export default function ProfileCard({ name, type, description, focus, avatar }) 
       <div className={styles.interests}>
         <span className={styles.interestLabel}>Focus:</span>
         <div className={styles.tagContainer}>
-          <span className={styles.tag}>{focus || 'N/A'}</span>
+          {focus?.split(',').map(tag => (
+            <span key={tag.trim()} className={styles.tag}>{tag.trim()}</span>
+          ))}
         </div>
       </div>
 
-      <button className={styles.connectButton}>
-        <UserPlus size={18} /> View Profile
-      </button>
+      {/* THE FIX: Changed to a non-interactive div to avoid nested buttons */}
+      <div className={styles.viewButton}>
+        View Profile
+      </div>
     </motion.div>
   );
 }
