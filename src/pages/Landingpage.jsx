@@ -1,8 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { BrainCircuit, Network, DollarSign, ArrowRight, Rocket, Target, Zap } from 'lucide-react';
+import { BrainCircuit, Network, DollarSign, ArrowRight, Rocket, Target, Zap, BookOpen, Users, Eye } from 'lucide-react';
 import styles from './LandingPage.module.css';
+import sprezoxDashboard from '../assets/sprexoz-dashboard.png';
+
 
 // Main Page Component
 export default function SprezoxLandingPage() {
@@ -16,8 +18,10 @@ export default function SprezoxLandingPage() {
       <main>
         <HeroSection />
         <FeaturesSection />
+        <AboutUsSection />
         <HowItWorksSection />
         <BentoGridSection />
+        <TeamSection />
         <FinalCTA />
       </main>
       <Footer />
@@ -38,7 +42,6 @@ const Header = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    // Close mobile menu when clicking a link
     const handleNavClick = (href) => {
         setMobileMenuOpen(false);
         if (href.startsWith('#')) {
@@ -49,7 +52,6 @@ const Header = () => {
         }
     };
 
-    // Prevent body scroll when mobile menu is open
     useEffect(() => {
         if (mobileMenuOpen) {
             document.body.style.overflow = 'hidden';
@@ -68,20 +70,18 @@ const Header = () => {
                     SPREZOX
                 </motion.div>
                 
-                {/* Desktop Navigation */}
                 <nav className={styles.desktopNav}>
                     <a href="#features" className={styles.navLink}>Features</a>
+                    <a href="#about" className={styles.navLink}>About</a>
                     <a href="#process" className={styles.navLink}>Process</a>
                     <a href="#ecosystem" className={styles.navLink}>Ecosystem</a>
                 </nav>
 
-                {/* Header Actions */}
                 <div className={styles.headerActions}>
                     <GradientButton onClick={() => navigate('/signin')}>
                         Get Early Access
                     </GradientButton>
                     
-                    {/* Mobile Menu Button */}
                     <button 
                         className={`${styles.mobileMenuButton} ${mobileMenuOpen ? styles.open : ''}`}
                         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -94,29 +94,11 @@ const Header = () => {
                 </div>
             </div>
 
-            {/* Mobile Navigation Overlay */}
             <nav className={`${styles.mobileNav} ${mobileMenuOpen ? styles.open : ''}`}>
-                <a 
-                    href="#features" 
-                    className={styles.mobileNavLink}
-                    onClick={() => handleNavClick('#features')}
-                >
-                    Features
-                </a>
-                <a 
-                    href="#process" 
-                    className={styles.mobileNavLink}
-                    onClick={() => handleNavClick('#process')}
-                >
-                    Process
-                </a>
-                <a 
-                    href="#ecosystem" 
-                    className={styles.mobileNavLink}
-                    onClick={() => handleNavClick('#ecosystem')}
-                >
-                    Ecosystem
-                </a>
+                <a href="#features" className={styles.mobileNavLink} onClick={() => handleNavClick('#features')}>Features</a>
+                <a href="#about" className={styles.mobileNavLink} onClick={() => handleNavClick('#about')}>About</a>
+                <a href="#process" className={styles.mobileNavLink} onClick={() => handleNavClick('#process')}>Process</a>
+                <a href="#ecosystem" className={styles.mobileNavLink} onClick={() => handleNavClick('#ecosystem')}>Ecosystem</a>
                 <GradientButton onClick={() => { setMobileMenuOpen(false); navigate('/signin'); }}>
                     Get Early Access
                 </GradientButton>
@@ -153,7 +135,7 @@ const HeroSection = () => {
         </motion.div>
         <motion.div className={styles.heroImageContainer} style={{ y: imageY }}>
             <img 
-              src="https://placehold.co/1200x800/111111/4F46E5?text=SPREZOX+Dashboard" 
+              src={sprezoxDashboard}
               alt="SPREZOX App Preview" 
               className={styles.heroImage}
             />
@@ -193,6 +175,80 @@ const FeaturesSection = () => {
                 ))}
             </div>
         </div>
+    </section>
+  );
+};
+
+// --- About Us Section ---
+const AboutUsSection = () => {
+  return (
+    <section id="about" className={styles.aboutSection}>
+      <div className={styles.container}>
+        <div className={styles.sectionHeader}>
+          <h2 className={styles.sectionTitle}>The Ultimate Startup Companion</h2>
+          <p className={styles.sectionSubtitle}>
+            We are a social media based entrepreneurial platform that empowers business and finance enthusiasts to learn, grow, and connect within the startup ecosystem.
+          </p>
+        </div>
+        <div className={styles.aboutContentGrid}>
+          <motion.div 
+            className={styles.aboutPrimaryText}
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+          >
+            <h3>Connecting the Ecosystem</h3>
+            <p>SPREZOX networks startups with the entire startup ecosystem including incubators, accelerators, angel investors, venture capitalists, mentors, and entrepreneurs all in one collaborative space designed for the next generation.</p>
+          </motion.div>
+          <motion.div 
+            className={styles.aboutHighlights}
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+          >
+            <div className={styles.highlightCard}>
+              <div className={styles.highlightIcon}><BookOpen size={24} /></div>
+              <div>
+                <h4>Learn</h4>
+                <p>Gain practical business and finance knowledge through short reels, podcasts, and expert-led content, making education engaging and community-driven.</p>
+              </div>
+            </div>
+            <div className={styles.highlightCard}>
+              <div className={styles.highlightIcon}><Users size={24} /></div>
+              <div>
+                <h4>Network</h4>
+                <p>Build meaningful connections with founders, mentors, and investors. Discover opportunities, exchange ideas, and expand your network effortlessly.</p>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+        <div className={styles.missionVisionContainer}>
+          <motion.div 
+            className={styles.missionCard}
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.4 }}
+          >
+            <Target size={32} />
+            <h3>Our Mission</h3>
+            <p>To make entrepreneurship smarter, faster, and more accessible for everyone with a bold idea. We empower young minds to turn their ideas into impactful ventures.</p>
+          </motion.div>
+          <motion.div 
+            className={styles.visionCard}
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.6 }}
+          >
+            <Eye size={32} />
+            <h3>Our Vision</h3>
+            <p>To create a vibrant digital ecosystem where learning meets networking, helping every entrepreneur move from idea to execution with confidence.</p>
+          </motion.div>
+        </div>
+      </div>
     </section>
   );
 };
@@ -280,6 +336,56 @@ const BentoCard = ({ gridArea, title, icon, description, isStat = false }) => {
             )}
         </motion.div>
     );
+};
+
+// --- Team Section ---
+const TeamSection = () => {
+  const teamMembers = [
+    { name: 'Mohammed Azgar', title: 'Founder & CEO', imageUrl: 'https://placehold.co/400x400/18181B/E5E7EB?text=Mohammed Azgar' },
+    { name: 'Md Sulaiman Kaif', title: 'Chief Operating Officer', imageUrl: 'https://placehold.co/400x400/18181B/E5E7EB?text=Md Sulaiman Kaif' },
+    { name: 'Ahamed Anas', title: 'Chief Technology Officer', imageUrl: 'https://placehold.co/400x400/18181B/E5E7EB?text=Ahamed Anas' },
+    { name: 'Hanish Adrian', title: 'Chief Marketing Officer', imageUrl: 'https://placehold.co/400x400/18181B/E5E7EB?text=Hanish Adrian' },
+  ];
+
+  return (
+    <section id="team" className={styles.teamSection}>
+      <div className={styles.container}>
+        <div className={styles.sectionHeader}>
+          <h2 className={styles.sectionTitle}>Meet Our Team</h2>
+          <p className={styles.sectionSubtitle}>The passionate minds dedicated to building the future of the startup ecosystem.</p>
+        </div>
+        <motion.div 
+          className={styles.teamGrid}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          transition={{ staggerChildren: 0.1 }}
+        >
+          {teamMembers.map((member, index) => (
+            <TeamMemberCard key={index} member={member} />
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
+// --- Team Member Card Sub-Component ---
+const TeamMemberCard = ({ member }) => {
+  const variants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } },
+  };
+
+  return (
+    <motion.div className={styles.teamMemberCard} variants={variants}>
+      <div className={styles.teamMemberImageContainer}>
+        <img src={member.imageUrl} alt={`Photo of ${member.name}`} className={styles.teamMemberImage} />
+      </div>
+      <h3 className={styles.teamMemberName}>{member.name}</h3>
+      <p className={styles.teamMemberTitle}>{member.title}</p>
+    </motion.div>
+  );
 };
 
 // --- Final CTA Section ---
