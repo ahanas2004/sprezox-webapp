@@ -274,6 +274,105 @@
   width: 80%;
 }
 
+/* Logo Container */
+.logoContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 800;
+  font-size: 1.75rem;
+  letter-spacing: -0.05em;
+  background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  cursor: pointer;
+  transition: all var(--transition-medium) var(--ease-smooth);
+  position: relative;
+  z-index: 10;
+}
+
+.logoContainer:hover {
+  transform: scale(1.05);
+}
+
+/* Logo Image */
+.logoImage {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  border-radius: 8px;
+  transition: all var(--transition-medium) var(--ease-smooth);
+  filter: drop-shadow(0 0 8px rgba(0, 217, 255, 0.3));
+}
+
+.logoContainer:hover .logoImage {
+  transform: rotate(-5deg) scale(1.1);
+  filter: drop-shadow(0 0 15px rgba(0, 217, 255, 0.5));
+}
+
+/* Logo Text */
+.logoText {
+  background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline;
+  transition: all var(--transition-medium) var(--ease-smooth);
+  font-size: 1.75rem;
+}
+
+/* Responsive - Adjust for mobile */
+@media (max-width: 640px) {
+  .logoContainer {
+    gap: 0.5rem;
+    font-size: 1.25rem;
+  }
+
+  .logoImage {
+    width: 32px;
+    height: 32px;
+  }
+
+  .logoText {
+    font-size: 1.25rem;
+  }
+}
+
+/* Tablet */
+@media (min-width: 641px) and (max-width: 1023px) {
+  .logoContainer {
+    gap: 0.6rem;
+    font-size: 1.5rem;
+  }
+
+  .logoImage {
+    width: 36px;
+    height: 36px;
+  }
+
+  .logoText {
+    font-size: 1.5rem;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .logoContainer {
+    gap: 0.75rem;
+    font-size: 1.75rem;
+  }
+
+  .logoImage {
+    width: 40px;
+    height: 40px;
+  }
+
+  .logoText {
+    font-size: 1.75rem;
+  }
+}
+
 /* =========================================================
    RESPONSIVE ADJUSTMENTS
    ========================================================= */

@@ -26,7 +26,6 @@ export default function ProfileCard({ name, type, description, focus, avatar, on
       initial="hidden"
       whileInView="visible"
       whileHover="hover"
-      variants={hoverVariants}
       viewport={{ once: true }}
     >
       <div className={styles.header}>

@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Home, Users, User, Menu, X, Gem } from 'lucide-react';
 import styles from './Header.module.css';
+import logoImage from './logo1.png'; // Change path to your logo location
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -44,7 +45,12 @@ export default function Header() {
 
   const logoVariants = {
     idle: { scale: 1 },
-    hover: { scale: 1.05, textShadow: '0 0 20px rgba(0, 217, 255, 0.5)' },
+    hover: { scale: 1.05 },
+  };
+
+  const imageVariants = {
+    idle: { rotate: 0 },
+    hover: { rotate: -5, scale: 1.1 },
   };
 
   return (
@@ -56,13 +62,24 @@ export default function Header() {
         transition={{ duration: 0.5, ease: 'easeOut' }}
       >
         <div className={styles.container}>
-          {/* Logo */}
+          {/* Logo with Image */}
           <motion.div
-            className={styles.logo}
+            className={styles.logoContainer}
             variants={logoVariants}
             whileHover="hover"
           >
-            SPREZOX
+            <motion.img
+              src={logoImage}
+              alt="SPREZOX Logo"
+              className={styles.logoImage}
+              variants={imageVariants}
+              whileHover="hover"
+            />
+            <motion.div
+              className={styles.logoText}
+            >
+              SPREZOX
+            </motion.div>
           </motion.div>
 
           {/* Desktop Navigation */}
