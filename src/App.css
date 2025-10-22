@@ -1,12 +1,64 @@
-/* --- ROOT CONTAINER --- */
+/* =========================================================
+   APP GLOBAL STYLES - PREMIUM EDITION
+   ========================================================= */
+
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  width: 100%;
+  min-height: 100vh;
+  background: var(--bg-primary);
+  color: var(--text-primary);
 }
 
-/* --- LOGO STYLES --- */
+/* =========================================================
+   ROUTE TRANSITIONS
+   ========================================================= */
+
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pageExit {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+/* =========================================================
+   UTILITY CLASSES
+   ========================================================= */
+
+.fade-enter {
+  animation: pageEnter 0.5s var(--ease-smooth);
+}
+
+.fade-exit {
+  animation: pageExit 0.3s var(--ease-smooth);
+}
+
+/* =========================================================
+   SCROLL BEHAVIOR
+   ========================================================= */
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* =========================================================
+   LOGO STYLES (LANDING PAGE)
+   ========================================================= */
+
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -14,55 +66,124 @@
   transition: filter 300ms ease;
 }
 
-/* Glow effect on hover */
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
 
-/* React logo specific hover glow */
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
-/* --- LOGO SPIN ANIMATION --- */
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+/* =========================================================
+   RESPONSIVE CONTAINER
+   ========================================================= */
 
-/* Spin animation only if user prefers motion */
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin 20s linear infinite;
-  }
-}
-
-/* --- CARD STYLES --- */
-.card {
-  padding: 2rem;
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-4);
   box-sizing: border-box;
-  background-color: var(--bg-surface);
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding: 0 var(--space-6);
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 0 var(--space-8);
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding: 0 var(--space-12);
+  }
+}
+
+/* =========================================================
+   CARD COMPONENT
+   ========================================================= */
+
+.card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius-lg);
-  border: 1px solid var(--border-primary);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: var(--space-8);
+  box-shadow: var(--shadow-depth-2);
+  backdrop-filter: var(--blur-medium);
+  -webkit-backdrop-filter: var(--blur-medium);
+  transition: all var(--transition-medium) var(--ease-smooth);
+  animation: fadeInUp 0.6s var(--ease-smooth);
 }
 
 .card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-depth-3), var(--shadow-neon-blue);
+  border-color: rgba(0, 217, 255, 0.3);
 }
 
-/* --- LINKS --- */
-.read-the-docs {
-  color: #888;
-  text-decoration: none;
-  transition: color 0.2s ease;
+/* =========================================================
+   LOADING STATES
+   ========================================================= */
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(0, 217, 255, 0.1) 25%,
+    rgba(0, 217, 255, 0.2) 50%,
+    rgba(0, 217, 255, 0.1) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeletonLoading 1.5s infinite;
 }
 
-.read-the-docs:hover {
-  color: var(--text-primary);
+@keyframes skeletonLoading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* =========================================================
+   DARK MODE
+   ========================================================= */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  }
+}
+
+/* =========================================================
+   FOCUS VISIBLE FOR KEYBOARD NAVIGATION
+   ========================================================= */
+
+:focus-visible {
+  outline: 2px solid var(--neon-blue);
+  outline-offset: 2px;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--neon-blue);
+  outline-offset: 4px;
+  border-radius: 4px;
 }

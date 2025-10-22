@@ -1,52 +1,187 @@
+/* =========================================================
+   MODAL BACKDROP - PREMIUM BLUR EFFECT
+   ========================================================= */
+
 .backdrop {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 2000;
   padding: 1rem;
   box-sizing: border-box;
+  animation: backdropFadeIn 0.3s ease-out;
 }
+
+@keyframes backdropFadeIn {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+  }
+  to {
+    opacity: 1;
+    backdrop-filter: blur(12px);
+  }
+}
+
+/* =========================================================
+   MODAL PANEL - GLASSMORPHISM WITH NEON ACCENTS
+   ========================================================= */
+
 .modalPanel {
   width: 100%;
   max-width: 600px;
   max-height: 90vh;
-  background-color: var(--bg-surface);
-  border-radius: 20px;
-  border: 1px solid var(--border-primary);
+  background: linear-gradient(135deg, rgba(24, 24, 27, 0.95), rgba(18, 18, 20, 0.95));
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+  box-shadow: var(--shadow-depth-4), 0 0 60px rgba(0, 217, 255, 0.2);
+  backdrop-filter: var(--blur-heavy);
+  -webkit-backdrop-filter: var(--blur-heavy);
+  animation: modalScaleIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
+
+@keyframes modalScaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* =========================================================
+   MODAL HEADER
+   ========================================================= */
+
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1.5rem;
-  border-bottom: 1px solid var(--border-primary);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   flex-shrink: 0;
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.05), rgba(180, 0, 255, 0.02));
 }
+
+/* =========================================================
+   MODAL TITLE
+   ========================================================= */
+
 .title {
   font-size: 1.5rem;
   font-weight: 700;
   margin: 0;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
 }
+
+/* =========================================================
+   CLOSE BUTTON - PREMIUM INTERACTION
+   ========================================================= */
+
 .closeButton {
   background: none;
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   color: var(--text-secondary);
   cursor: pointer;
   padding: 0.5rem;
+  border-radius: 8px;
+  transition: all var(--transition-medium) var(--ease-smooth);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
+.closeButton:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--neon-blue);
+  color: var(--neon-blue);
+  box-shadow: 0 0 12px rgba(0, 217, 255, 0.3);
+}
+
+.closeButton:active {
+  transform: scale(0.9);
+}
+
+/* =========================================================
+   MODAL CONTENT
+   ========================================================= */
+
 .content {
   padding: 1.5rem;
   overflow-y: auto;
+  flex: 1;
+}
+
+/* Custom scrollbar for modal content */
+.content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.content::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--neon-blue), var(--neon-purple));
+  border-radius: 10px;
+}
+
+.content::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--neon-purple), var(--neon-blue));
+  box-shadow: var(--shadow-neon-blue);
+}
+
+/* =========================================================
+   RESPONSIVE ADJUSTMENTS
+   ========================================================= */
+
+@media (max-width: 600px) {
+  .modalPanel {
+    max-width: 100%;
+    border-radius: 16px;
+  }
+
+  .header {
+    padding: 1rem;
+  }
+
+  .title {
+    font-size: 1.25rem;
+  }
+
+  .content {
+    padding: 1rem;
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION ACCESSIBILITY
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .backdrop {
+    animation: none;
+  }
+
+  .modalPanel {
+    animation: none;
+  }
+
+  .closeButton {
+    transition: none;
+  }
 }

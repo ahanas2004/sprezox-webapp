@@ -1,33 +1,119 @@
 .card {
-  background-color: var(--bg-surface);
+  background: var(--glass-bg);
   border-radius: var(--radius-lg);
-  border: 1px solid var(--border-primary);
+  border: 1px solid var(--glass-border);
   padding: var(--space-8);
   display: flex;
   flex-direction: column;
-  transition: box-shadow 0.3s, transform 0.3s;
+  transition: all var(--transition-medium) var(--ease-smooth);
+  cursor: pointer;
+  backdrop-filter: var(--blur-medium);
+  -webkit-backdrop-filter: var(--blur-medium);
+  box-shadow: var(--shadow-depth-2);
 }
-.header { display: flex; align-items: center; gap: var(--space-4); margin-bottom: var(--space-6); }
-.avatar { width: 70px; height: 70px; border-radius: 50%; object-fit: cover; }
-.nameContainer { display: flex; flex-direction: column; }
-.name { font-size: var(--font-size-h3); font-weight: 700; margin: 0; line-height: 1.2; }
-.role { font-size: var(--font-size-base); color: var(--text-secondary); margin: 0; text-transform: capitalize; }
-.bio { font-size: var(--font-size-base); color: var(--text-secondary); line-height: 1.6; flex-grow: 1; margin-bottom: var(--space-6); }
-.interests { margin-bottom: var(--space-6); }
-.interestLabel { font-size: var(--font-size-sm); font-weight: 500; color: var(--text-muted); }
-.tagContainer { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-2); }
+
+.card:hover {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: var(--shadow-depth-3), var(--shadow-neon-blue);
+  border-color: rgba(0, 217, 255, 0.4);
+  background: linear-gradient(135deg, rgba(0, 217, 255, 0.05), rgba(180, 0, 255, 0.02));
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.avatar {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--glass-border);
+  transition: all var(--transition-medium);
+}
+
+.card:hover .avatar {
+  border-color: var(--neon-blue);
+  box-shadow: 0 0 20px rgba(0, 217, 255, 0.3);
+}
+
+.nameContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  font-size: var(--font-size-h3);
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.role {
+  font-size: var(--font-size-base);
+  color: var(--text-secondary);
+  margin: 0;
+  text-transform: capitalize;
+}
+
+.bio {
+  font-size: var(--font-size-base);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  flex-grow: 1;
+  margin-bottom: var(--space-6);
+}
+
+.interests {
+  margin-bottom: var(--space-6);
+}
+
+.interestLabel {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.tagContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+
 .tag {
-  background-color: var(--border-primary);
-  color: var(--text-primary);
+  background-color: rgba(0, 217, 255, 0.1);
+  color: var(--neon-blue);
   padding: var(--space-1) var(--space-3);
   border-radius: 999px;
   font-size: var(--font-size-sm);
   font-weight: 500;
+  border: 1px solid rgba(0, 217, 255, 0.2);
+  transition: all var(--transition-fast);
 }
-.connectButton {
-  background: linear-gradient(90deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
-  color: white; border: none; border-radius: var(--radius-md);
-  padding: var(--space-3) var(--space-6); font-size: var(--font-size-base); font-weight: 600;
-  cursor: pointer; display: flex; align-items: center;
-  justify-content: center; gap: var(--space-2); width: 100%;
+
+.tag:hover {
+  background-color: rgba(0, 217, 255, 0.2);
+  border-color: rgba(0, 217, 255, 0.4);
+}
+
+.viewButton {
+  background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-6);
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  transition: all var(--transition-medium);
+}
+
+.card:hover .viewButton {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-neon-blue);
 }

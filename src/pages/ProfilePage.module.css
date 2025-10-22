@@ -1,196 +1,605 @@
-/* --- SPREZOX PROFILE PAGE STYLES (DEFINITIVE) --- */
-.container {
-    max-width: 900px;
-    margin: 0 auto;
-}
+/* =========================================================
+   PROFILE PAGE - PREMIUM GLASSMORPHISM STYLES
+   ========================================================= */
+
+/* =========================================================
+   PROFILE HEADER
+   ========================================================= */
 
 .profileHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-    margin-bottom: -2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: var(--space-6);
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-4);
+  animation: fadeInDown 0.6s var(--ease-smooth);
+}
+
+.profileInfo {
+  flex: 1;
+  min-width: 250px;
 }
 
 .signOutButton {
-    background: #B91C1C;
-    color: white;
-    border: none;
-    border-radius: var(--radius-md);
-    padding: var(--space-3) var(--space-6);
-    font-size: var(--font-size-base);
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.2s, transform 0.2s;
+  background: linear-gradient(135deg, #B91C1C 0%, #991B1B 100%);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-6);
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-medium) var(--ease-smooth);
+  box-shadow: var(--shadow-depth-2);
+  white-space: nowrap;
+  position: relative;
+  overflow: hidden;
 }
+
+.signOutButton::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
 .signOutButton:hover {
-    background: #991B1B;
-    transform: translateY(-2px);
+  background: linear-gradient(135deg, #991B1B 0%, #7F1D1D 100%);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-depth-3), 0 0 25px rgba(185, 28, 28, 0.4);
 }
 
-/* --- Role Selection --- */
-.roleSelectionContainer {
-    text-align: center;
-    padding: var(--space-8) 0;
-    display: flex;
+.signOutButton:active {
+  transform: scale(0.98);
+}
+
+@media (max-width: 640px) {
+  .profileHeader {
     flex-direction: column;
-    justify-content: center;
-    min-height: 300px;
-}
-.roleTitle {
-    font-size: var(--font-size-h2);
-    font-weight: 700;
-}
-.roleSubtitle {
-    font-size: var(--font-size-lg);
-    color: var(--text-secondary);
-    margin-top: var(--space-2);
-    margin-bottom: var(--space-12);
-}
-.roleOptions {
-    display: grid;
-    grid-template-columns: 1fr; /* Stacked on mobile */
-    gap: var(--space-6);
-}
-.roleButton {
-    background: var(--background-primary);
-    border: 1px solid var(--border-primary);
-    color: var(--text-primary);
-    padding: var(--space-8);
-    border-radius: var(--radius-lg);
-    font-size: var(--font-size-h3);
-    font-weight: 600;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: stretch;
     gap: var(--space-4);
-    transition: background-color 0.2s, border-color 0.2s, transform 0.2s;
-}
-.roleButton:hover {
-    transform: translateY(-5px);
-    border-color: var(--gradient-start);
-    background-color: var(--bg-surface);
-}
+  }
 
-/* --- Dashboards & Sub-selections --- */
-.dashboardHeader {
-    display: grid;
-    grid-template-columns: auto 1fr auto; /* Back | Title | Action */
-    align-items: center;
-    margin-bottom: var(--space-8);
-    gap: var(--space-4);
-}
-.dashboardTitle {
-    font-size: var(--font-size-h2);
-    font-weight: 700;
-    margin: 0;
-    text-align: center;
-    grid-column: 2 / 3;
-}
-.backButton {
-    background: none;
-    border: 1px solid var(--border-primary);
-    color: var(--text-secondary);
-    padding: var(--space-2) var(--space-4);
-    border-radius: var(--radius-md);
-    font-size: var(--font-size-sm);
-    font-weight: 500;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    transition: color 0.2s, border-color 0.2s;
-    justify-self: start;
-    grid-column: 1 / 2;
-}
-.backButton:hover {
-    color: var(--text-primary);
-    border-color: var(--text-primary);
-}
-.editButton {
-    background: none;
-    border: 1px solid var(--border-primary);
-    color: var(--text-secondary);
-    padding: var(--space-3) var(--space-6);
-    border-radius: var(--radius-md);
-    font-size: var(--font-size-base);
-    font-weight: 500;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    transition: color 0.2s, border-color 0.2s;
-    justify-self: end;
-    grid-column: 3 / 4;
-}
-.editButton:hover {
-    color: var(--text-primary);
-    border-color: var(--text-primary);
-}
-.emptyState {
-    font-size: var(--font-size-lg);
-    color: var(--text-secondary);
-    text-align: center;
-    margin-top: var(--space-12);
-}
-
-/* --- STYLES FOR MENTOR & STARTUP BUTTONS --- */
-.managementButton {
-    background: linear-gradient(90deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
-    color: white;
-    border: none;
-    border-radius: var(--radius-md);
-    padding: var(--space-4);
-    font-size: var(--font-size-lg);
-    font-weight: 600;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
+  .signOutButton {
     width: 100%;
-}
-.startupOptions {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--space-6);
-    padding: var(--space-8) 0;
-}
-.submissionButton {
-    background-color: var(--bg-surface);
-    color: var(--text-primary);
-    border: 1px solid var(--border-primary);
-    border-radius: var(--radius-md);
-    padding: var(--space-4);
-    font-size: var(--font-size-lg);
-    font-weight: 600;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  }
 }
 
-.managementButton:hover, .submissionButton:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+/* =========================================================
+   ROLE SELECTION SECTION
+   ========================================================= */
+
+.roleSelectionContainer {
+  text-align: center;
+  padding: var(--space-12) var(--space-4);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 500px;
+  gap: var(--space-8);
 }
+
+.roleTitle {
+  font-size: var(--font-size-h2);
+  font-weight: 800;
+  margin: 0;
+  background: linear-gradient(135deg, var(--neon-blue) 0%, var(--neon-purple) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.roleSubtitle {
+  font-size: var(--font-size-lg);
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.6;
+}
+
+.roleOptions {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+  margin-top: var(--space-6);
+}
+
+@media (min-width: 640px) {
+  .roleOptions {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 1024px) {
+  .roleOptions {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.roleButton {
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.1), rgba(180, 0, 255, 0.05));
+  border: 1px solid rgba(0, 217, 255, 0.15);
+  color: var(--text-primary);
+  padding: var(--space-8);
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-h3);
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  transition: all var(--transition-medium) var(--ease-smooth);
+  backdrop-filter: var(--blur-light);
+  -webkit-backdrop-filter: var(--blur-light);
+  box-shadow: var(--shadow-depth-1);
+  position: relative;
+  overflow: hidden;
+}
+
+.roleButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(0, 217, 255, 0.1) 50%,
+    transparent 100%
+  );
+  transition: left var(--transition-medium);
+}
+
+.roleButton:hover {
+  transform: translateY(-12px) scale(1.03);
+  border-color: var(--neon-blue);
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.2), rgba(180, 0, 255, 0.1));
+  box-shadow: var(--shadow-depth-3), var(--shadow-neon-blue);
+}
+
+.roleButton:hover::before {
+  left: 100%;
+}
+
+.roleButton:active {
+  transform: scale(0.96);
+}
+
+.roleIcon {
+  color: var(--neon-blue);
+  transition: all var(--transition-medium) var(--ease-smooth);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.roleButton:hover .roleIcon {
+  transform: scale(1.15) rotate(5deg);
+  filter: drop-shadow(0 0 15px rgba(0, 217, 255, 0.4));
+}
+
+/* =========================================================
+   DASHBOARD HEADER
+   ========================================================= */
+
+.dashboardHeader {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  margin-bottom: var(--space-8);
+  gap: var(--space-4);
+  animation: fadeInDown 0.5s var(--ease-smooth);
+}
+
+.dashboardTitle {
+  font-size: var(--font-size-h2);
+  font-weight: 800;
+  margin: 0;
+  text-align: center;
+  grid-column: 2 / 3;
+  background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.02em;
+}
+
+.backButton {
+  background: rgba(0, 217, 255, 0.05);
+  border: 1px solid rgba(0, 217, 255, 0.2);
+  color: var(--text-secondary);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  transition: all var(--transition-medium) var(--ease-smooth);
+  justify-self: start;
+  grid-column: 1 / 2;
+  backdrop-filter: var(--blur-light);
+  -webkit-backdrop-filter: var(--blur-light);
+  box-shadow: var(--shadow-depth-1);
+}
+
+.backButton:hover {
+  color: var(--neon-blue);
+  border-color: var(--neon-blue);
+  background: rgba(0, 217, 255, 0.1);
+  box-shadow: 0 0 20px rgba(0, 217, 255, 0.25);
+  transform: translateX(-3px);
+}
+
+.backButton:active {
+  transform: scale(0.95) translateX(-3px);
+}
+
+.editButton {
+  background: rgba(0, 217, 255, 0.05);
+  border: 1px solid rgba(0, 217, 255, 0.2);
+  color: var(--text-secondary);
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  transition: all var(--transition-medium) var(--ease-smooth);
+  justify-self: end;
+  grid-column: 3 / 4;
+  backdrop-filter: var(--blur-light);
+  -webkit-backdrop-filter: var(--blur-light);
+  box-shadow: var(--shadow-depth-1);
+}
+
+.editButton:hover {
+  color: var(--neon-blue);
+  border-color: var(--neon-blue);
+  background: rgba(0, 217, 255, 0.1);
+  box-shadow: 0 0 20px rgba(0, 217, 255, 0.25);
+  transform: translateY(-3px) scale(1.02);
+}
+
+.editButton:active {
+  transform: scale(0.95);
+}
+
+@media (max-width: 768px) {
+  .dashboardHeader {
+    grid-template-columns: 1fr;
+    text-align: center;
+    margin-bottom: var(--space-6);
+  }
+
+  .dashboardTitle {
+    grid-column: 1 / -1;
+    order: 2;
+    margin: var(--space-4) 0;
+    font-size: var(--font-size-h3);
+  }
+
+  .backButton {
+    order: 1;
+    justify-self: start;
+    grid-column: 1;
+    width: fit-content;
+  }
+
+  .editButton {
+    order: 3;
+    justify-self: end;
+    grid-column: 1;
+    width: fit-content;
+    margin-top: var(--space-2);
+  }
+}
+
+/* =========================================================
+   STARTUP OPTIONS
+   ========================================================= */
+
+.startupOptions {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+  padding: var(--space-8) 0;
+  animation: fadeInUp 0.6s var(--ease-smooth) 0.2s both;
+}
+
+@media (min-width: 640px) {
+  .startupOptions {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.submissionButton {
+  background: linear-gradient(135deg, rgba(0, 217, 255, 0.1), rgba(79, 70, 229, 0.1));
+  color: var(--text-primary);
+  border: 1px solid rgba(0, 217, 255, 0.2);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-medium) var(--ease-smooth);
+  backdrop-filter: var(--blur-light);
+  -webkit-backdrop-filter: var(--blur-light);
+  box-shadow: var(--shadow-depth-1);
+  position: relative;
+  overflow: hidden;
+}
+
+.submissionButton::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
 .submissionButton:hover {
-    border-color: var(--gradient-start);
+  transform: translateY(-4px) scale(1.02);
+  border-color: var(--neon-blue);
+  background: linear-gradient(135deg, rgba(0, 217, 255, 0.2), rgba(79, 70, 229, 0.15));
+  box-shadow: var(--shadow-depth-2), var(--shadow-neon-blue);
 }
+
+.submissionButton:active {
+  transform: scale(0.98);
+}
+
+/* =========================================================
+   SUBMISSION LIST & EMPTY STATE
+   ========================================================= */
 
 .submissionList {
-    margin-top: var(--space-12);
-    display: grid;
-    gap: var(--space-6);
+  margin-top: var(--space-12);
+  display: grid;
+  gap: var(--space-6);
+  animation: fadeInUp 0.6s var(--ease-smooth) 0.3s both;
 }
 
-/* --- RESPONSIVENESS --- */
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-6);
+  padding: var(--space-16) var(--space-4);
+  text-align: center;
+  min-height: 300px;
+}
+
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 3px solid rgba(0, 217, 255, 0.15);
+  border-top: 3px solid var(--neon-blue);
+  border-radius: 50%;
+  box-shadow: 0 0 25px rgba(0, 217, 255, 0.3);
+}
+
+.loadingContainer p {
+  color: var(--text-secondary);
+  font-size: var(--font-size-lg);
+  margin: 0;
+}
+
+.emptyState {
+  text-align: center;
+  padding: var(--space-12);
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.05), rgba(180, 0, 255, 0.05));
+  border: 1px dashed rgba(0, 217, 255, 0.2);
+  border-radius: var(--radius-lg);
+  color: var(--text-secondary);
+  font-size: var(--font-size-lg);
+  backdrop-filter: var(--blur-light);
+  -webkit-backdrop-filter: var(--blur-light);
+  transition: all var(--transition-medium) var(--ease-smooth);
+  line-height: 1.6;
+}
+
+.emptyState:hover {
+  transform: translateY(-4px);
+  border-color: rgba(0, 217, 255, 0.4);
+  box-shadow: 0 12px 36px rgba(0, 217, 255, 0.15);
+}
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================================================
+   RESPONSIVE ADJUSTMENTS
+   ========================================================= */
+
+@media (max-width: 374px) {
+  .roleSelectionContainer {
+    padding: var(--space-6) var(--space-2);
+    min-height: 400px;
+  }
+
+  .roleTitle {
+    font-size: var(--font-size-h3);
+  }
+
+  .roleSubtitle {
+    font-size: var(--font-size-base);
+  }
+
+  .roleButton {
+    padding: var(--space-6);
+  }
+}
+
+@media (max-width: 640px) {
+  .profileHeader {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-4);
+  }
+
+  .profileInfo {
+    min-width: unset;
+  }
+
+  .signOutButton {
+    width: 100%;
+  }
+
+  .roleSelectionContainer {
+    padding: var(--space-8) var(--space-4);
+    min-height: 450px;
+  }
+
+  .roleOptions {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  .roleButton {
+    padding: var(--space-6);
+  }
+
+  .startupOptions {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  .submissionList {
+    gap: var(--space-4);
+  }
+}
+
 @media (min-width: 768px) {
-    .profileHeader {
-        flex-direction: row;
-        align-items: center;
-    }
-    .roleOptions {
-        grid-template-columns: 1fr 1fr;
-    }
-    .startupOptions {
-        grid-template-columns: 1fr 1fr;
-    }
+  .profileHeader {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .roleOptions {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .startupOptions {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 1024px) {
+  .roleOptions {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* =========================================================
+   ACCESSIBILITY - REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .profileHeader,
+  .roleSelectionContainer,
+  .dashboardHeader,
+  .startupOptions,
+  .submissionList {
+    animation: none;
+  }
+
+  .signOutButton,
+  .roleButton,
+  .submissionButton,
+  .backButton,
+  .editButton {
+    transition: none;
+  }
+
+  .spinner {
+    animation: none;
+  }
+
+  .roleIcon {
+    transition: none;
+  }
+
+  .roleButton::before,
+  .submissionButton::before {
+    transition: none;
+  }
+}
+
+/* =========================================================
+   FOCUS VISIBLE - KEYBOARD NAVIGATION
+   ========================================================= */
+
+.backButton:focus-visible,
+.editButton:focus-visible,
+.signOutButton:focus-visible,
+.roleButton:focus-visible,
+.submissionButton:focus-visible {
+  outline: 2px solid var(--neon-blue);
+  outline-offset: 2px;
+}
+
+/* =========================================================
+   TOUCH DEVICE ADJUSTMENTS
+   ========================================================= */
+
+@media (hover: none) {
+  .roleButton:hover,
+  .submissionButton:hover,
+  .editButton:hover,
+  .backButton:hover {
+    transform: none;
+  }
+
+  .roleButton:active,
+  .submissionButton:active {
+    transform: scale(0.97);
+  }
 }

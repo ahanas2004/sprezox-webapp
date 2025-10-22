@@ -1,22 +1,41 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 /* --- BASE STYLES --- */
+
 body {
   margin: 0;
+  padding: 0;
   background-color: var(--bg-primary);
   color: var(--text-primary);
   font-family: 'Inter', var(--font-main);
   font-size: var(--font-size-base);
   line-height: 1.6;
   transition: background-color var(--transition-medium) ease, color var(--transition-medium) ease;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 main {
-  padding-top: 80px; /* Matches fixed header height */
+  padding-top: 80px;
   min-height: 100vh;
   box-sizing: border-box;
+  position: relative;
 }
 
 /* --- PAGE TYPOGRAPHY --- */
@@ -28,6 +47,7 @@ main {
   line-height: 1.2;
   color: var(--text-primary);
   transition: color var(--transition-fast) ease;
+  animation: fadeInUp 0.6s var(--ease-smooth);
 }
 
 .pageSubtitle {
@@ -37,10 +57,459 @@ main {
   margin-bottom: var(--space-16);
   line-height: 1.7;
   transition: color var(--transition-fast) ease;
+  animation: fadeInUp 0.6s var(--ease-smooth) 0.1s both;
 }
 
 /* --- SMOOTH TEXT ADJUSTMENTS --- */
 h1, h2, h3, h4, h5, h6, p {
   margin: 0;
   padding: 0;
+  font-weight: 600;
+  line-height: 1.2;
 }
+
+
+h1 { font-size: var(--font-size-h1); }
+h2 { font-size: var(--font-size-h2); }
+h3 { font-size: var(--font-size-h3); }
+h4 { font-size: var(--font-size-lg); }
+h5, h6 { font-size: var(--font-size-base); }
+
+/* ============================================================
+   PARAGRAPHS - NO DEFAULT MARGIN
+   ============================================================ */
+
+p {
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+/* ============================================================
+   LINKS
+   ============================================================ */
+
+a {
+  color: var(--gradient-start);
+  text-decoration: none;
+  transition: all var(--transition-fast) ease;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* ============================================================
+   INPUT & FORM STYLES - NO PADDING OVERRIDE
+   ============================================================ */
+
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  border: none;
+  margin: 0;
+  padding: 0;
+  transition: all var(--transition-medium) var(--ease-smooth);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+}
+
+/* ============================================================
+   VIDEO ELEMENT - CRITICAL FIX
+   ============================================================ */
+
+video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+/* ============================================================
+   IMAGES
+   ============================================================ */
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+/* ============================================================
+   SCROLLBAR STYLING
+   ============================================================ */
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--neon-blue), var(--neon-purple));
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--neon-purple), var(--neon-blue));
+  box-shadow: var(--shadow-neon-blue);
+}
+
+/* ============================================================
+   ACCESSIBILITY
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================================
+   SELECTION STYLES
+   ============================================================ */
+
+::selection {
+  background-color: var(--gradient-start);
+  color: white;
+}
+
+::-moz-selection {
+  background-color: var(--gradient-start);
+  color: white;
+}
+
+/* ============================================================
+   CONTAINER STYLES - NO PADDING/MARGIN OVERRIDE
+   ============================================================ */
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-4);
+  box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 0 var(--space-8);
+  }
+}
+
+/* ============================================================
+   UTILITY ANIMATIONS - NO STRUCTURAL CHANGES
+   ============================================================ */
+
+.animate-in {
+  animation: fadeInUp 0.6s var(--ease-smooth);
+}
+
+.animate-scale {
+  animation: scaleInUp 0.5s var(--ease-smooth);
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* ============================================================
+   CARD COMPONENT BASE - NO EXCESSIVE STYLING
+   ============================================================ */
+
+.card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+  box-shadow: var(--shadow-depth-2);
+  backdrop-filter: var(--blur-medium);
+  -webkit-backdrop-filter: var(--blur-medium);
+  transition: all var(--transition-medium) var(--ease-smooth);
+  animation: scaleInUp 0.5s var(--ease-smooth);
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-depth-3), var(--shadow-neon-blue);
+  border-color: rgba(0, 217, 255, 0.3);
+}
+
+/* ============================================================
+   MEDIA QUERIES - RESPONSIVE RESET
+   ============================================================ */
+
+@media (max-width: 640px) {
+  body {
+    font-size: var(--font-size-sm);
+  }
+
+  main {
+    padding-top: 70px;
+  }
+
+  .container {
+    padding: 0 var(--space-4);
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding: 0 var(--space-12);
+  }
+}
+
+/* ============================================================
+   FOCUS VISIBLE - KEYBOARD NAVIGATION (NO OVERRIDE)
+   ============================================================ */
+
+:focus-visible {
+  outline: 2px solid var(--neon-blue);
+  outline-offset: 2px;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--neon-blue);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+/* ============================================================
+   PRINT STYLES
+   ============================================================ */
+
+@media print {
+  body {
+    background: white;
+    color: black;
+  }
+
+  main {
+    padding-top: 0;
+  }
+
+  * {
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+}
+/* ============================================================
+   GLOBAL ANIMATIONS KEYFRAMES
+   ============================================================ */
+
+/* Entrance Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes scaleInUp {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Hover & Interaction Animations */
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(0, 217, 255, 0.2), 0 0 20px rgba(0, 217, 255, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(0, 217, 255, 0.4), 0 0 40px rgba(0, 217, 255, 0.2);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes rotateIn {
+  from {
+    opacity: 0;
+    transform: rotate(-10deg) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+  }
+}
+
+/* Loading & Skeleton Animations */
+@keyframes skeletonLoading {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Ripple Effect */
+@keyframes ripple {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* Modal Animations */
+@keyframes backdropFadeIn {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+  }
+  to {
+    opacity: 1;
+    backdrop-filter: blur(12px);
+  }
+}
+
+@keyframes modalScaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+

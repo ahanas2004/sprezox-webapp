@@ -1,61 +1,124 @@
 /* =========================================================
-   Sprezox Card Styles (Enhanced Apple-Inspired Edition)
-   Subtle glassmorphism, fluid hover, smooth shadow depth,
-   responsive polish, and minimal elegance.
+   CARD STYLES - PREMIUM GLASSMORPHISM EDITION
    ========================================================= */
 
 .card {
-  background-color: var(--bg-surface);
-  border: 1px solid var(--border-primary);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius-lg);
   padding: var(--space-8);
-
-  /* Apple-inspired glass look */
-  backdrop-filter: saturate(160%) blur(18px);
-  -webkit-backdrop-filter: saturate(160%) blur(18px);
-
-  /* Soft depth */
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-  transition:
-    transform 300ms cubic-bezier(.2, .9, .22, 1),
-    box-shadow 320ms cubic-bezier(.4, 0, .2, 1),
-    background-color 200ms ease;
-  will-change: transform, box-shadow, background-color;
+  backdrop-filter: var(--blur-medium);
+  -webkit-backdrop-filter: var(--blur-medium);
+  box-shadow: var(--shadow-depth-2);
+  transition: all var(--transition-medium) var(--ease-smooth);
+  will-change: transform, box-shadow, background;
+  position: relative;
+  overflow: hidden;
 }
 
-/* Hover interaction */
+/* Animated background gradient */
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(0, 217, 255, 0.05) 0%, rgba(180, 0, 255, 0.05) 100%);
+  opacity: 0;
+  transition: opacity var(--transition-medium);
+  border-radius: var(--radius-lg);
+  pointer-events: none;
+}
+
+/* =========================================================
+   CARD HOVER STATE
+   ========================================================= */
+
 .card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.15);
-  background-color: rgba(255, 255, 255, 0.06);
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: var(--shadow-depth-3), var(--shadow-neon-blue);
+  border-color: rgba(0, 217, 255, 0.3);
+  background: linear-gradient(135deg, rgba(24, 24, 27, 0.8), rgba(24, 24, 27, 0.7));
+  backdrop-filter: var(--blur-heavy);
+  -webkit-backdrop-filter: var(--blur-heavy);
 }
 
-/* Active click feedback */
+.card:hover::before {
+  opacity: 1;
+}
+
+/* =========================================================
+   CARD ACTIVE / CLICK STATE
+   ========================================================= */
+
 .card:active {
-  transform: scale(0.98);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  transform: scale(0.99);
+  box-shadow: var(--shadow-depth-2);
 }
 
-/* Focus accessibility (keyboard nav) */
+/* =========================================================
+   CARD FOCUS STATE (ACCESSIBILITY)
+   ========================================================= */
+
 .card:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.25),
-              0 8px 28px rgba(0, 0, 0, 0.15);
-  transform: translateY(-2px);
+  outline: 2px solid var(--neon-blue);
+  outline-offset: -2px;
 }
 
-/* Optional media responsiveness */
-@media (max-width: 600px) {
+/* =========================================================
+   INTERACTIVE CARD VARIANT
+   ========================================================= */
+
+.card.interactive {
+  cursor: pointer;
+  transition: all var(--transition-medium) var(--ease-smooth);
+}
+
+.card.interactive:hover {
+  transform: translateY(-12px) scale(1.02);
+}
+
+/* =========================================================
+   RESPONSIVE ADJUSTMENTS
+   ========================================================= */
+
+@media (max-width: 640px) {
   .card {
-    padding: calc(var(--space-8) * 0.75);
-    border-radius: calc(var(--radius-lg) * 0.8);
+    padding: var(--space-6) var(--space-4);
+    border-radius: calc(var(--radius-lg) * 0.9);
+  }
+
+  .card:hover {
+    transform: translateY(-4px) scale(1.005);
   }
 }
 
-/* Motion reduction for accessibility */
+/* =========================================================
+   REDUCED MOTION ACCESSIBILITY
+   ========================================================= */
+
 @media (prefers-reduced-motion: reduce) {
   .card {
-    transition: none !important;
+    transition: none;
     transform: none !important;
+  }
+
+  .card:hover {
+    transform: none !important;
+  }
+}
+
+/* =========================================================
+   TOUCH DEVICE ADJUSTMENTS
+   ========================================================= */
+
+@media (hover: none) {
+  .card:hover {
+    transform: none;
+  }
+
+  .card:active {
+    transform: scale(0.97);
   }
 }

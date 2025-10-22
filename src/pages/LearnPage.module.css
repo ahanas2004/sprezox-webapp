@@ -1,60 +1,171 @@
-/* --- SPREZOX LEARN PAGE STYLES --- */
+/* =========================================================
+   LEARN PAGE - PREMIUM FEED LAYOUT
+   ========================================================= */
 
-/* Container for the feed: single-column, centered layout */
 .container {
   width: 100%;
-  max-width: 720px; /* Optimal reading width for a single feed */
+  max-width: 720px;
   margin-left: auto;
   margin-right: auto;
   box-sizing: border-box;
-  padding: var(--space-4);
+  padding: var(--space-4) var(--space-4) var(--space-12);
   transition: padding 0.3s ease;
+  animation: fadeInUp 0.6s var(--ease-smooth);
 }
 
-/* Feed container: flex column with spacious gap */
+/* =========================================================
+   FEED CONTAINER - STAGGERED ANIMATIONS
+   ========================================================= */
+
 .feedContainer {
   display: flex;
   flex-direction: column;
-  gap: var(--space-10); /* 2.5rem gap between cards */
+  gap: 2.5rem;
   transition: gap 0.3s ease;
+  margin-top: var(--space-12);
 }
 
-/* Empty state styling */
+/* =========================================================
+   LOADING STATE - PREMIUM SPINNER
+   ========================================================= */
+
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-6);
+  padding: var(--space-16);
+  text-align: center;
+  animation: fadeInUp 0.5s var(--ease-smooth);
+}
+
+.loadingSpinner {
+  width: 48px;
+  height: 48px;
+  border: 3px solid rgba(0, 217, 255, 0.2);
+  border-top: 3px solid var(--neon-blue);
+  border-radius: 50%;
+  box-shadow: 0 0 20px rgba(0, 217, 255, 0.3);
+}
+
+.loadingContainer p {
+  color: var(--text-secondary);
+  font-size: var(--font-size-lg);
+  animation: float 3s ease-in-out infinite;
+}
+
+/* =========================================================
+   EMPTY STATE - PREMIUM DESIGN
+   ========================================================= */
+
 .emptyState {
   font-size: var(--font-size-lg);
   color: var(--text-secondary);
   text-align: center;
   margin-top: var(--space-12);
-  padding: var(--space-8);
-  background-color: var(--bg-surface);
+  padding: var(--space-12);
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.05), rgba(180, 0, 255, 0.05));
+  border: 1px dashed rgba(0, 217, 255, 0.2);
   border-radius: var(--radius-lg);
-  border: 1px dashed var(--border-primary);
-  transition: background-color 0.3s, transform 0.2s ease, box-shadow 0.3s ease;
-}
-.emptyState:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(79, 70, 229, 0.1);
+  backdrop-filter: var(--blur-light);
+  -webkit-backdrop-filter: var(--blur-light);
+  transition: all var(--transition-medium) var(--ease-smooth);
 }
 
-/* Error text styling */
-.errorText {
+.emptyState:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 217, 255, 0.15);
+  border-color: rgba(0, 217, 255, 0.4);
+}
+
+.emptyState h3 {
+  font-size: var(--font-size-h3);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--space-3);
+}
+
+.emptyState p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* =========================================================
+   ERROR & STATUS TEXT
+   ========================================================= */
+
+.feedStatus {
   font-size: var(--font-size-lg);
-  color: #ef4444; /* Standard error red */
+  color: var(--text-secondary);
   text-align: center;
   margin-top: var(--space-12);
-  padding: var(--space-4);
-  animation: fadeIn 0.4s ease;
+  padding: var(--space-8);
+  background: rgba(79, 70, 229, 0.1);
+  border-radius: var(--radius-lg);
+  animation: fadeInUp 0.5s var(--ease-smooth);
 }
 
-/* Optional subtle fade-in for empty/error messages */
+.errorText {
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+/* =========================================================
+   FADE-IN ANIMATION
+   ========================================================= */
+
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(5px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-/* Responsive padding adjustments */
+/* =========================================================
+   RESPONSIVE ADJUSTMENTS
+   ========================================================= */
+
 @media (min-width: 640px) {
   .container {
-    padding: var(--space-6);
+    padding: var(--space-6) var(--space-6) var(--space-12);
+  }
+
+  .feedContainer {
+    gap: 3rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: var(--space-8) var(--space-8) var(--space-16);
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION ACCESSIBILITY
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .container {
+    animation: none;
+  }
+
+  .emptyState {
+    animation: none;
+    transition: none;
+  }
+
+  .loadingContainer p {
+    animation: none;
+  }
+
+  .loadingSpinner {
+    animation: none;
   }
 }
