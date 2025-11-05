@@ -65,6 +65,338 @@
   border-color: rgba(0, 217, 255, 0.4);
 }
 
+/* Add these new styles to existing NetworkPage.module.css */
+
+/* =========================================================
+   SEARCH & FILTER CONTROLS
+   ========================================================= */
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
+  animation: fadeInUp 0.5s var(--ease-smooth) 0.3s both;
+}
+
+.searchBox {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-secondary);
+  pointer-events: none;
+  transition: color var(--transition-fast);
+}
+
+.searchInput {
+  width: 100%;
+  padding: var(--space-3) var(--space-12) var(--space-3) 48px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-size: var(--font-size-base);
+  transition: all var(--transition-medium) var(--ease-smooth);
+  backdrop-filter: var(--blur-light);
+  -webkit-backdrop-filter: var(--blur-light);
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: var(--neon-blue);
+  box-shadow: 0 0 20px rgba(0, 217, 255, 0.2);
+  background: rgba(0, 217, 255, 0.05);
+}
+
+.searchInput:focus + .searchIcon {
+  color: var(--neon-blue);
+}
+
+.searchInput::placeholder {
+  color: var(--text-muted);
+}
+
+.clearButton {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: var(--text-secondary);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+}
+
+.clearButton:hover {
+  background: rgba(239, 68, 68, 0.2);
+  color: #EF4444;
+}
+
+/* =========================================================
+   FILTER BUTTONS
+   ========================================================= */
+
+.filters {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.filter, .filterActive {
+  padding: var(--space-2) var(--space-4);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-medium) var(--ease-smooth);
+  backdrop-filter: var(--blur-light);
+  -webkit-backdrop-filter: var(--blur-light);
+  white-space: nowrap;
+}
+
+.filter:hover {
+  background: rgba(0, 217, 255, 0.1);
+  border-color: var(--neon-blue);
+  color: var(--text-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 217, 255, 0.15);
+}
+
+.filterActive {
+  background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+  border-color: var(--neon-blue);
+  color: white;
+  box-shadow: var(--shadow-depth-1), var(--shadow-neon-blue);
+}
+
+.filterActive:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-depth-2), var(--shadow-neon-blue);
+}
+
+/* =========================================================
+   RESULTS COUNT
+   ========================================================= */
+
+.resultsCount {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-4);
+  animation: fadeInUp 0.5s var(--ease-smooth) 0.4s both;
+}
+
+/* =========================================================
+   ENHANCED EMPTY STATE
+   ========================================================= */
+
+.emptyState h3 {
+  font-size: var(--font-size-h3);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 var(--space-2) 0;
+}
+
+.emptyState p {
+  color: var(--text-secondary);
+  margin: 0 0 var(--space-6) 0;
+  line-height: 1.6;
+}
+
+.resetButton {
+  background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-6);
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-medium) var(--ease-smooth);
+}
+
+.resetButton:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-depth-2), var(--shadow-neon-blue);
+}
+
+/* =========================================================
+   RESPONSIVE DESIGN
+   ========================================================= */
+
+@media (min-width: 768px) {
+  .controls {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .searchBox {
+    flex: 1;
+    max-width: 500px;
+  }
+  
+  .filters {
+    flex-shrink: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .searchInput {
+    font-size: var(--font-size-sm);
+    padding-right: 40px;
+  }
+  
+  .filter, .filterActive {
+    flex: 1;
+    text-align: center;
+    min-width: 80px;
+  }
+}
+
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .controls {
+    animation: none;
+  }
+  
+  .resultsCount {
+    animation: none;
+  }
+}
+
+/* =========================================================
+   RESPONSIVE DESIGN — IMPROVED FOR MOBILE
+   ========================================================= */
+
+/* ✅ Desktop (>=768px) */
+@media (min-width: 768px) {
+  .controls {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .searchBox {
+    flex: 1;
+    max-width: 500px;
+  }
+
+  .filters {
+    flex-shrink: 0;
+  }
+}
+
+/* ✅ Mobile (320px–425px) */
+@media (max-width: 425px) {
+  .controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-3);
+    width: 100%;
+  }
+
+  .searchBox {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .searchInput {
+    font-size: 14px;
+    padding: var(--space-3) 36px var(--space-3) 40px;
+    border-radius: var(--radius-md);
+  }
+
+  .searchIcon {
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-3);
+    width: 100%;
+  }
+
+  .filter,
+  .filterActive {
+    flex: 1 1 calc(50% - 8px);
+    text-align: center;
+    min-width: 120px;
+    font-size: 13px;
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .resultsCount {
+    text-align: center;
+    font-size: 13px;
+    margin-top: var(--space-2);
+  }
+
+  .emptyState {
+    padding: var(--space-10) var(--space-3);
+    border-radius: var(--radius-md);
+  }
+
+  .emptyState h3 {
+    font-size: 1.1rem;
+  }
+
+  .emptyState p {
+    font-size: 0.9rem;
+  }
+
+  .resetButton {
+    font-size: 0.85rem;
+    padding: var(--space-2) var(--space-4);
+  }
+}
+
+/* ✅ Ultra Small Devices (below 340px width like iPhone SE) */
+@media (max-width: 340px) {
+  .searchInput {
+    padding-left: 36px;
+    padding-right: 32px;
+    font-size: 13px;
+  }
+
+  .filter,
+  .filterActive {
+    flex: 1 1 100%;
+    min-width: unset;
+    font-size: 12px;
+    padding: var(--space-2) var(--space-2);
+  }
+
+  .filters {
+    gap: var(--space-2);
+  }
+}
+
 /* =========================================================
    RESPONSIVE ADJUSTMENTS
    ========================================================= */
