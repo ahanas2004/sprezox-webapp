@@ -79,7 +79,7 @@ const Header = () => {
 
                 <div className={styles.headerActions}>
                     <GradientButton onClick={() => navigate('/signin')}>
-                        Get Early Access
+                        Join Waitlist
                     </GradientButton>
                     
                     <button 
@@ -100,7 +100,7 @@ const Header = () => {
                 <a href="#process" className={styles.mobileNavLink} onClick={() => handleNavClick('#process')}>Process</a>
                 <a href="#ecosystem" className={styles.mobileNavLink} onClick={() => handleNavClick('#ecosystem')}>Ecosystem</a>
                 <GradientButton onClick={() => { setMobileMenuOpen(false); navigate('/signin'); }}>
-                    Get Early Access
+                    Join Waitlist
                 </GradientButton>
             </nav>
         </header>
@@ -129,7 +129,7 @@ const HeroSection = () => {
             </p>
             <div className={styles.heroCtaContainer}>
               <GradientButton size="large" onClick={() => navigate('/signin')}>
-                Get Early Access
+                Join Waitlist
               </GradientButton>
             </div>
         </motion.div>
@@ -342,8 +342,8 @@ const BentoCard = ({ gridArea, title, icon, description, isStat = false }) => {
 const TeamSection = () => {
   const teamMembers = [
     { name: 'Mohammed Azgar', title: 'Founder & CEO', imageUrl: 'https://placehold.co/400x400/18181B/E5E7EB?text=Mohammed Azgar' },
-    { name: 'Md Sulaiman Kaif', title: 'Chief Operating Officer', imageUrl: 'https://placehold.co/400x400/18181B/E5E7EB?text=Md Sulaiman Kaif' },
-    { name: 'Ahamed Anas', title: 'Chief Technology Officer', imageUrl: 'https://placehold.co/400x400/18181B/E5E7EB?text=Ahamed Anas' },
+    { name: 'Sulaiman Kaif', title: 'Co-Founder & COO', imageUrl: 'https://placehold.co/400x400/18181B/E5E7EB?text=Md Sulaiman Kaif' },
+    { name: 'Ahamed', title: 'Chief Technology Officer', imageUrl: 'https://placehold.co/400x400/18181B/E5E7EB?text=Ahamed ' },
     { name: 'Hanish Adrian', title: 'Chief Marketing Officer', imageUrl: 'https://placehold.co/400x400/18181B/E5E7EB?text=Hanish Adrian' },
   ];
 
@@ -400,7 +400,7 @@ const FinalCTA = () => {
                 <p className={styles.finalCTASubtitle}>Be the first to know when we launch. Your journey starts now.</p>
                 <div className={styles.ctaButtonContainer}>
                     <GradientButton onClick={() => navigate('/signin')}>
-                        Get Early Access
+                        Join Waitlist
                     </GradientButton>
                 </div>
             </div>
