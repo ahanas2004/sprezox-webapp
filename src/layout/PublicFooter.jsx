@@ -61,8 +61,8 @@ export default function PublicFooter() {
       </div>
 
       <div className={styles.bottom}>
-        <p>© 2025 SPREZOX Technologies Pvt. Ltd. All rights reserved.</p>
-        <p>Made with ❤️ in Chennai, India</p>
+        <p>© 2025 SPREZOX  Pvt. Ltd. All rights reserved.</p>
+        <p>Copy Rights with Sprezox Pvt. Ltd. </p>
       </div>
     </footer>
   );

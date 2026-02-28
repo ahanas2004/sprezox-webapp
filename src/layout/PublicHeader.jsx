@@ -51,7 +51,7 @@ export default function PublicHeader() {
         <div className={styles.inner}>
           {/* Logo */}
           <NavLink to="/" className={styles.logo}>
-            <span className={styles.logoMark}>S</span>
+            <img src="/logo1.png" alt="Sprezox Logo" className={styles.logoImg} />
             <span className={styles.logoText}>SPREZOX</span>
           </NavLink>
 
@@ -159,7 +159,11 @@ export default function PublicHeader() {
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
             >
               <div className={styles.drawerHeader}>
-                <span className={styles.drawerLogo}>SPREZOX</span>
+                {/* Updated Drawer Logo */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <img src="/logo1.png" alt="Sprezox Logo" className={styles.logoImg} style={{ width: '30px', height: '30px' }} />
+                  <span className={styles.drawerLogo}>SPREZOX</span>
+                </div>
                 <button onClick={() => setMenuOpen(false)} className={styles.drawerClose}>
                   <X size={22} />
                 </button>

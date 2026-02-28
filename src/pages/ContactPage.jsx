@@ -17,21 +17,21 @@ const contactTypes = [
     icon: MessageSquare,
     title: 'General Inquiries',
     desc: 'Questions about the platform, the app, our story, or anything else.',
-    detail: 'hello@sprezox.com',
+    detail: 'core@sprezox.com',
     color: '#6C63FF',
   },
   {
     icon: Building,
     title: 'Institution Partnerships',
-    desc: 'Interested in bringing our programs to your school or college? Let\'s talk.',
-    detail: 'partnerships@sprezox.com',
+    desc: "Interested in bringing our programs to your school or college? Let's talk.",
+    detail: 'core@sprezox.com',
     color: '#14B8A6',
   },
   {
     icon: BarChart2,
     title: 'Investor Relations',
     desc: 'For angel investors, VCs, or anyone interested in backing SPREZOX itself.',
-    detail: 'invest@sprezox.com',
+    detail: 'core@sprezox.com',
     color: '#A855F7',
   },
 ];
@@ -51,6 +51,7 @@ export default function ContactPage() {
   });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   const handleChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -59,10 +60,37 @@ export default function ContactPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    // Simulated submit — replace with actual API call (e.g. Supabase insert or EmailJS)
-    await new Promise((res) => setTimeout(res, 1400));
-    setLoading(false);
-    setSubmitted(true);
+    setError(false);
+
+    try {
+      // Sending form data via Web3Forms (Free & No Backend Required)
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          // TODO: Replace with your Web3Forms Access Key
+          access_key: "3f5cee1e-0dbc-4664-b9dd-ca880f42efbe", 
+          subject: `New SPREZOX Inquiry: ${formData.inquiryType}`,
+          from_name: formData.name,
+          ...formData
+        }),
+      });
+
+      const result = await response.json();
+      
+      if (result.success) {
+        setSubmitted(true);
+      } else {
+        setError(true);
+      }
+    } catch (err) {
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -130,7 +158,7 @@ export default function ContactPage() {
                   <div className={styles.successIcon}><Check size={28} /></div>
                   <h3 className={styles.successTitle}>Message Received!</h3>
                   <p className={styles.successText}>
-                    Thanks for reaching out. We'll be in touch within 24–48 hours.
+                    Thanks for reaching out. We'll be in touch with you at {formData.email} soon.
                   </p>
                 </motion.div>
               ) : (
@@ -204,6 +232,8 @@ export default function ContactPage() {
                     />
                   </div>
 
+                  {error && <p className={styles.errorText}>Oops! Something went wrong. Please try again.</p>}
+
                   <button type="submit" className={styles.submitBtn} disabled={loading}>
                     {loading ? (
                       <span className={styles.loadingDots}>
@@ -233,32 +263,30 @@ export default function ContactPage() {
                   <Mail size={18} className={styles.infoIcon} />
                   <div>
                     <p className={styles.infoLabel}>General Email</p>
-                    <a href="mailto:hello@sprezox.com" className={styles.infoValue}>hello@sprezox.com</a>
+                    <a href="mailto:core@sprezox.com" className={styles.infoValue}>core@sprezox.com</a>
                   </div>
                 </div>
                 <div className={styles.infoCard}>
                   <Phone size={18} className={styles.infoIcon} />
                   <div>
                     <p className={styles.infoLabel}>Phone</p>
-                    <p className={styles.infoValue}>+91 (Contact form preferred)</p>
+                    <a href="tel:+918148522265" className={styles.infoValue}>+91 8148522265</a>
                   </div>
                 </div>
               </div>
 
-              {/* Map placeholder */}
-              <div className={styles.mapPlaceholder}>
-                <div className={styles.mapInner}>
-                  <MapPin size={32} className={styles.mapPin} />
-                  <p className={styles.mapLabel}>Chennai, India</p>
-                  <a
-                    href="https://maps.google.com/?q=Chennai,+Tamil+Nadu,+India"
-                    target="_blank"
-                    rel="noreferrer"
-                    className={styles.mapLink}
-                  >
-                    Open in Google Maps →
-                  </a>
-                </div>
+              {/* Working Google Map iframe */}
+              <div className={styles.mapContainer}>
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3883.3540748647415!2d80.2791!3d13.2658!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a526f6681c362db%3A0x9ea749db67f523ca!2s2%2F4%2C%20Manikandan%202nd%20St%2C%20NN%20Garden%2C%20Washermanpet%2C%20Chennai%2C%20Tamil%20Nadu%20600021!5e0!3m2!1sen!2sin!4v1772309518477!5m2!1sen!2sin"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen=""
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Sprezox Office Map"
+                ></iframe>
               </div>
 
               {/* Response time */}
