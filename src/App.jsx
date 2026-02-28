@@ -4,6 +4,7 @@ import { AnimatePresence } from 'framer-motion';
 import { ThemeProvider } from './context/ThemeContext';
 import { AuthProvider } from './context/AuthContext';
 import RootLayout from './layout/RootLayout';
+import PublicLayout from './layout/PublicLayout';
 import LearnPage from './pages/LearnPage';
 import NetworkPage from './pages/NetworkPage';
 import ProfilePage from './pages/ProfilePage';
@@ -13,6 +14,15 @@ import IdeasPage from './pages/IdeasPage';
 import LandingPage from './pages/Landingpage';
 import PublicRoute from './components/core/PublicRoute';
 
+// New Public Pages
+import AboutPage from './pages/AboutPage';
+import VenturesPage from './pages/VenturesPage';
+import AppVenturePage from './pages/AppVenturePage';
+import EdTechPage from './pages/EdTechPage';
+import StartupEcoPage from './pages/StartupEcoPage';
+import SchoolsPage from './pages/SchoolsPage';
+import ContactPage from './pages/ContactPage';
+
 export default function App() {
   return (
     <ThemeProvider>
@@ -20,13 +30,22 @@ export default function App() {
         <Router>
           <AnimatePresence mode="wait">
             <Routes>
-              {/* Public Routes */}
+              {/* Public Routes - with public nav */}
               <Route element={<PublicRoute />}>
-                <Route path="/" element={<LandingPage />} />
+                <Route element={<PublicLayout />}>
+                  <Route path="/" element={<LandingPage />} />
+                  <Route path="/about" element={<AboutPage />} />
+                  <Route path="/ventures" element={<VenturesPage />} />
+                  <Route path="/ventures/app" element={<AppVenturePage />} />
+                  <Route path="/ventures/edtech" element={<EdTechPage />} />
+                  <Route path="/startup-ecosystem" element={<StartupEcoPage />} />
+                  <Route path="/schools-colleges" element={<SchoolsPage />} />
+                  <Route path="/contact" element={<ContactPage />} />
+                </Route>
                 <Route path="/signin" element={<SignInScreen />} />
               </Route>
 
-              {/* Protected Routes */}
+              {/* Protected Routes - with app nav */}
               <Route element={<ProtectedRoute />}>
                 <Route element={<RootLayout />}>
                   <Route path="/home" element={<LearnPage />} />

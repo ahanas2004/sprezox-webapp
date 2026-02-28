@@ -1,0 +1,189 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap');
+
+.page { background: #08080e; color: #fff; min-height: 100vh; font-family: 'DM Sans', sans-serif; }
+.container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+
+/* Hero */
+.hero { position: relative; padding: 7rem 2rem 5rem; overflow: hidden; }
+.heroBg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 15% 60%, rgba(20,184,166,0.12) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 20%, rgba(245,158,11,0.06) 0%, transparent 55%);
+  pointer-events: none;
+}
+
+.tag {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  color: #2dd4bf; background: rgba(20,184,166,0.1); border: 1px solid rgba(20,184,166,0.25);
+  padding: 0.35rem 0.875rem; border-radius: 99px; margin-bottom: 1.25rem;
+}
+
+.heroTitle {
+  font-family: 'Syne', sans-serif; font-size: clamp(2.5rem, 6vw, 4.75rem);
+  font-weight: 800; line-height: 1.05; letter-spacing: -0.03em; color: #fff; margin: 0 0 1.5rem;
+}
+
+.accent {
+  background: linear-gradient(90deg, #14B8A6, #6C63FF);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+
+.heroSub { font-size: 1.05rem; color: rgba(255,255,255,0.55); line-height: 1.75; max-width: 580px; margin: 0 0 2.5rem; }
+.heroCtas { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+/* Buttons */
+.btnPrimary {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: linear-gradient(135deg, #14B8A6, #6C63FF); color: #fff;
+  border: none; border-radius: 12px; padding: 0.875rem 1.75rem;
+  font-size: 1rem; font-weight: 600; cursor: pointer;
+  font-family: 'DM Sans', sans-serif; transition: opacity 0.2s, transform 0.2s;
+  box-shadow: 0 0 30px rgba(20,184,166,0.3);
+}
+.btnPrimary:hover { opacity: 0.9; transform: translateY(-2px); }
+
+.btnSecondary {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.75);
+  border: 1px solid rgba(255,255,255,0.12); border-radius: 12px;
+  padding: 0.875rem 1.75rem; font-size: 1rem; font-weight: 500; cursor: pointer;
+  font-family: 'DM Sans', sans-serif; transition: background 0.2s, color 0.2s;
+}
+.btnSecondary:hover { background: rgba(255,255,255,0.09); color: #fff; }
+
+/* Sections */
+.section { padding: 6rem 2rem; }
+.sectionDark {
+  padding: 6rem 2rem;
+  background: rgba(255,255,255,0.02);
+  border-top: 1px solid rgba(255,255,255,0.05);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.sectionLabel { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #2dd4bf; margin-bottom: 0.875rem; }
+.h2 {
+  font-family: 'Syne', sans-serif; font-size: clamp(1.75rem, 4vw, 2.75rem);
+  font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; color: #fff; margin: 0 0 2.5rem;
+}
+
+/* Why */
+.reasonsGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; }
+
+.reasonCard {
+  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 20px; padding: 2rem;
+  display: flex; flex-direction: column; gap: 0.875rem;
+  transition: border-color 0.3s, transform 0.2s;
+}
+.reasonCard:hover { border-color: rgba(20,184,166,0.3); transform: translateY(-4px); }
+
+.reasonIcon {
+  width: 44px; height: 44px; border-radius: 12px;
+  background: rgba(20,184,166,0.1); border: 1px solid rgba(20,184,166,0.2);
+  display: flex; align-items: center; justify-content: center; color: #2dd4bf;
+}
+
+.reasonTitle { font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 700; color: #fff; margin: 0; }
+.reasonDesc { font-size: 0.875rem; color: rgba(255,255,255,0.5); line-height: 1.7; margin: 0; }
+
+/* Programs */
+.programsGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 1.5rem; }
+
+.programCard {
+  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 24px; padding: 2rem;
+  display: flex; flex-direction: column; gap: 1.25rem;
+  transition: border-color 0.3s;
+}
+.programCard:hover { border-color: var(--c); }
+
+.programHeader { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
+.programTitle { font-family: 'Syne', sans-serif; font-size: 1.15rem; font-weight: 800; color: #fff; margin: 0 0 0.3rem; }
+.programSuitable { font-size: 0.75rem; color: var(--c, #14B8A6); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin: 0; }
+
+.programDuration {
+  font-size: 0.72rem; font-weight: 600; color: rgba(255,255,255,0.5);
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+  padding: 0.25rem 0.625rem; border-radius: 99px; white-space: nowrap; flex-shrink: 0;
+}
+
+.moduleList { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+.moduleList li { display: flex; align-items: flex-start; gap: 0.5rem; font-size: 0.875rem; color: rgba(255,255,255,0.6); line-height: 1.4; }
+.checkIcon { color: var(--c, #14B8A6); flex-shrink: 0; margin-top: 2px; }
+
+/* Process */
+.processGrid { display: grid; grid-template-columns: 1fr; gap: 1.25rem; }
+@media (min-width: 640px) { .processGrid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 900px) { .processGrid { grid-template-columns: repeat(4, 1fr); } }
+
+.processCard {
+  background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 20px; padding: 1.75rem;
+  display: flex; flex-direction: column; gap: 0.75rem;
+  position: relative;
+}
+
+.processNum {
+  font-family: 'Syne', sans-serif; font-size: 2.5rem; font-weight: 800;
+  color: rgba(20,184,166,0.2); display: block; line-height: 1;
+}
+
+.processLine {
+  width: 28px; height: 2px;
+  background: linear-gradient(90deg, #14B8A6, transparent);
+  border-radius: 99px;
+}
+
+.processTitle { font-family: 'Syne', sans-serif; font-size: 0.975rem; font-weight: 700; color: #fff; margin: 0; }
+.processDesc { font-size: 0.85rem; color: rgba(255,255,255,0.5); line-height: 1.65; margin: 0; }
+
+/* Perks */
+.perksGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; }
+
+.perkCard {
+  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 18px; padding: 1.5rem;
+  display: flex; flex-direction: column; gap: 0.5rem;
+  transition: border-color 0.3s;
+}
+.perkCard:hover { border-color: rgba(20,184,166,0.3); }
+
+.perkEmoji { font-size: 1.5rem; }
+.perkLabel { font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 700; color: #fff; margin: 0; }
+.perkDesc { font-size: 0.82rem; color: rgba(255,255,255,0.5); line-height: 1.6; margin: 0; }
+
+/* FAQ */
+.faqList { display: flex; flex-direction: column; border-top: 1px solid rgba(255,255,255,0.07); margin-top: 0.5rem; }
+.faqItem { border-bottom: 1px solid rgba(255,255,255,0.07); }
+
+.faqQ {
+  width: 100%; background: none; border: none; color: #fff;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1.25rem 0; font-size: 0.975rem; font-weight: 600;
+  cursor: pointer; text-align: left; font-family: 'DM Sans', sans-serif; transition: color 0.2s;
+}
+.faqQ:hover { color: #2dd4bf; }
+
+.faqChevron {
+  font-size: 1.25rem; color: rgba(255,255,255,0.3); flex-shrink: 0;
+  transition: transform 0.25s; display: inline-block; line-height: 1;
+}
+.faqChevronOpen { transform: rotate(45deg); }
+
+.faqA { overflow: hidden; }
+.faqA p { padding: 0 0 1.25rem; font-size: 0.9rem; color: rgba(255,255,255,0.5); line-height: 1.75; margin: 0; }
+
+/* CTA */
+.ctaSection { padding: 4rem 2rem 6rem; }
+.ctaBox {
+  background: linear-gradient(135deg, rgba(20,184,166,0.08), rgba(108,99,255,0.06));
+  border: 1px solid rgba(20,184,166,0.2); border-radius: 28px;
+  padding: 5rem 3rem; text-align: center;
+  display: flex; flex-direction: column; align-items: center; gap: 1.25rem;
+}
+
+.ctaIcon { color: #2dd4bf; margin-bottom: 0.5rem; }
+.ctaTitle { font-family: 'Syne', sans-serif; font-size: clamp(1.75rem, 4vw, 3rem); font-weight: 800; color: #fff; margin: 0; letter-spacing: -0.02em; max-width: 560px; }
+.ctaSub { font-size: 1rem; color: rgba(255,255,255,0.5); max-width: 520px; margin: 0; line-height: 1.65; }

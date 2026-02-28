@@ -1,449 +1,339 @@
-import { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { BrainCircuit, Network, DollarSign, ArrowRight, Rocket, Target, Zap, BookOpen, Users, Eye } from 'lucide-react';
+import { ArrowRight, Zap, Users, TrendingUp, BookOpen, Globe, ChevronRight } from 'lucide-react';
 import styles from './LandingPage.module.css';
-import sprezoxDashboard from '../assets/sprexoz-dashboard.png';
 
-
-// Main Page Component
-export default function SprezoxLandingPage() {
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', 'dark');
-  }, []);
-
+/* ── Animated background mesh ── */
+function MeshBackground() {
   return (
-    <div className={styles.mainWrapper}>
-      <Header />
-      <main>
-        <HeroSection />
-        <FeaturesSection />
-        <AboutUsSection />
-        <HowItWorksSection />
-        <BentoGridSection />
-        <TeamSection />
-        <FinalCTA />
-      </main>
-      <Footer />
-      <CustomCursor />
+    <div className={styles.meshBg} aria-hidden="true">
+      <div className={styles.meshOrb1} />
+      <div className={styles.meshOrb2} />
+      <div className={styles.meshOrb3} />
+      <div className={styles.meshGrid} />
     </div>
   );
 }
 
-// --- Header Component with Mobile Menu ---
-const Header = () => {
-    const navigate = useNavigate();
-    const [scrolled, setScrolled] = useState(false);
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-    
-    useEffect(() => {
-        const handleScroll = () => setScrolled(window.scrollY > 50);
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+/* ── Floating stat chip ── */
+function StatChip({ value, label, delay = 0 }) {
+  return (
+    <motion.div
+      className={styles.statChip}
+      initial={{ opacity: 0, scale: 0.8, y: 20 }}
+      animate={{ opacity: 1, scale: 1, y: 0 }}
+      transition={{ delay: 0.8 + delay, duration: 0.5, ease: [0.34, 1.56, 0.64, 1] }}
+    >
+      <span className={styles.statValue}>{value}</span>
+      <span className={styles.statLabel}>{label}</span>
+    </motion.div>
+  );
+}
 
-    const handleNavClick = (href) => {
-        setMobileMenuOpen(false);
-        if (href.startsWith('#')) {
-            const element = document.querySelector(href);
-            if (element) {
-                element.scrollIntoView({ behavior: 'smooth' });
-            }
-        }
-    };
+/* ── Feature card ── */
+function FeatureCard({ icon: Icon, title, desc, accent, delay }) {
+  return (
+    <motion.div
+      className={styles.featureCard}
+      style={{ '--accent': accent }}
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, delay, ease: [0.16, 1, 0.3, 1] }}
+      whileHover={{ y: -6, transition: { duration: 0.2 } }}
+    >
+      <div className={styles.featureIcon}>
+        <Icon size={22} />
+      </div>
+      <h3 className={styles.featureTitle}>{title}</h3>
+      <p className={styles.featureDesc}>{desc}</p>
+    </motion.div>
+  );
+}
 
-    useEffect(() => {
-        if (mobileMenuOpen) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = 'unset';
-        }
-        return () => {
-            document.body.style.overflow = 'unset';
-        };
-    }, [mobileMenuOpen]);
+/* ── Audience card ── */
+function AudienceCard({ emoji, title, desc, to, delay }) {
+  const navigate = useNavigate();
+  return (
+    <motion.div
+      className={styles.audienceCard}
+      initial={{ opacity: 0, x: -30 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay }}
+      onClick={() => navigate(to)}
+      role="button"
+      tabIndex={0}
+    >
+      <span className={styles.audienceEmoji}>{emoji}</span>
+      <div>
+        <h4 className={styles.audienceTitle}>{title}</h4>
+        <p className={styles.audienceDesc}>{desc}</p>
+      </div>
+      <ChevronRight size={20} className={styles.audienceArrow} />
+    </motion.div>
+  );
+}
 
-    return (
-        <header className={`${styles.header} ${scrolled ? styles.headerScrolled : ''}`}>
-            <div className={styles.headerContainer}>
-                <motion.div className={styles.logo} whileHover={{ scale: 1.05 }}>
-                    SPREZOX
-                </motion.div>
-                
-                <nav className={styles.desktopNav}>
-                    <a href="#features" className={styles.navLink}>Features</a>
-                    <a href="#about" className={styles.navLink}>About</a>
-                    <a href="#process" className={styles.navLink}>Process</a>
-                    <a href="#ecosystem" className={styles.navLink}>Ecosystem</a>
-                </nav>
-
-                <div className={styles.headerActions}>
-                    <GradientButton onClick={() => navigate('/signin')}>
-                        Join Waitlist
-                    </GradientButton>
-                    
-                    <button 
-                        className={`${styles.mobileMenuButton} ${mobileMenuOpen ? styles.open : ''}`}
-                        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                        aria-label="Toggle menu"
-                    >
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </button>
-                </div>
-            </div>
-
-            <nav className={`${styles.mobileNav} ${mobileMenuOpen ? styles.open : ''}`}>
-                <a href="#features" className={styles.mobileNavLink} onClick={() => handleNavClick('#features')}>Features</a>
-                <a href="#about" className={styles.mobileNavLink} onClick={() => handleNavClick('#about')}>About</a>
-                <a href="#process" className={styles.mobileNavLink} onClick={() => handleNavClick('#process')}>Process</a>
-                <a href="#ecosystem" className={styles.mobileNavLink} onClick={() => handleNavClick('#ecosystem')}>Ecosystem</a>
-                <GradientButton onClick={() => { setMobileMenuOpen(false); navigate('/signin'); }}>
-                    Join Waitlist
-                </GradientButton>
-            </nav>
-        </header>
-    );
-};
-
-// --- Hero Section ---
-const HeroSection = () => {
+export default function LandingPage() {
   const navigate = useNavigate();
   const heroRef = useRef(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const imageY = useTransform(scrollYProgress, [0, 1], ['0%', '-20%']);
-  
-  return (
-    <section ref={heroRef} className={styles.hero}>
-        <div className={styles.heroGlowBackground} />
-        <motion.div className={styles.heroContent} style={{ opacity: contentOpacity }}>
-            <h1 className={styles.heroHeadline}>
-                Where Ambition
-                <br />
-                <span className={styles.gradientText}>Meets Opportunity.</span>
-            </h1>
-            <p className={styles.heroSubheadline}>
-              The all-in-one platform where India's next generation of innovators learn, connect, and build the future.
-            </p>
-            <div className={styles.heroCtaContainer}>
-              <GradientButton size="large" onClick={() => navigate('/signin')}>
-                Join Waitlist
-              </GradientButton>
-            </div>
-        </motion.div>
-        <motion.div className={styles.heroImageContainer} style={{ y: imageY }}>
-            <img 
-              src={sprezoxDashboard}
-              alt="SPREZOX App Preview" 
-              className={styles.heroImage}
-            />
-        </motion.div>
-    </section>
-  );
-};
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const heroY = useTransform(scrollYProgress, [0, 1], ['0%', '20%']);
 
-// --- Features Section ---
-const FeaturesSection = () => {
   const features = [
-        { icon: <BrainCircuit size={28}/>, title: "Curated Knowledge", description: "Access a library of actionable insights from proven experts. No fluff, just strategy." },
-        { icon: <Network size={28}/>, title: "Intelligent Networking", description: "Our AI-powered engine connects you with the right mentors, co-founders, and investors." },
-        { icon: <DollarSign size={28}/>, title: "Capital Opportunities", description: "Discover and connect with a diverse range of investors, from angels to VCs, ready to fund the future." },
+    { icon: BookOpen, title: 'Curated Learning', desc: 'Short reels, podcasts, and expert content on business and finance — no fluff, just strategy.', accent: '#6C63FF', delay: 0 },
+    { icon: Users, title: 'Smart Networking', desc: 'AI-powered connections with the right mentors, co-founders, investors, and ecosystem players.', accent: '#A855F7', delay: 0.1 },
+    { icon: TrendingUp, title: 'Capital Access', desc: 'Private placement-based funding with curated crowd investors ready to back bold ideas.', accent: '#EC4899', delay: 0.2 },
+    { icon: Globe, title: 'EdTech for Institutions', desc: 'Junior MBA programs, workshops, and mentorship for schools and colleges across India.', accent: '#14B8A6', delay: 0.3 },
   ];
-  return(
-    <section id="features" className={styles.featuresSection}>
-        <div className={styles.container}>
-            <div className={styles.sectionHeader}>
-                <h2 className={styles.sectionTitle}>An Unfair Advantage</h2>
-                <p className={styles.sectionSubtitle}>We've built the tools so you can focus on building the future. Our integrated ecosystem provides everything you need to succeed.</p>
-            </div>
-            <div className={styles.featuresGrid}>
-                {features.map((feature, i) => (
-                    <motion.div 
-                        key={i} 
-                        className={styles.featureCard} 
-                        initial={{ opacity: 0, y: 50 }} 
-                        whileInView={{ opacity: 1, y: 0 }} 
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.5, delay: i * 0.1 }}
-                    >
-                        <div className={styles.featureIcon}>{feature.icon}</div>
-                        <h3 className={styles.featureTitle}>{feature.title}</h3>
-                        <p className={styles.featureDescription}>{feature.description}</p>
-                    </motion.div>
-                ))}
-            </div>
-        </div>
-    </section>
-  );
-};
 
-// --- About Us Section ---
-const AboutUsSection = () => {
+  const audiences = [
+    { emoji: '🚀', title: 'Founders & Entrepreneurs', desc: 'Learn, network, and raise capital all in one place.', to: '/startup-ecosystem', delay: 0 },
+    { emoji: '🎓', title: 'Students & Early Professionals', desc: 'Build skills and connections before you even graduate.', to: '/startup-ecosystem', delay: 0.1 },
+    { emoji: '💼', title: 'Investors & Mentors', desc: 'Discover curated deal flow and the next generation of founders.', to: '/startup-ecosystem', delay: 0.2 },
+    { emoji: '🏫', title: 'Schools & Colleges', desc: 'Bring entrepreneurship education to your campus.', to: '/schools-colleges', delay: 0.3 },
+  ];
+
   return (
-    <section id="about" className={styles.aboutSection}>
-      <div className={styles.container}>
-        <div className={styles.sectionHeader}>
-          <h2 className={styles.sectionTitle}>The Ultimate Startup Companion</h2>
-          <p className={styles.sectionSubtitle}>
-            We are a social media based entrepreneurial platform that empowers business and finance enthusiasts to learn, grow, and connect within the startup ecosystem.
-          </p>
+    <div className={styles.page}>
+      {/* ── HERO ── */}
+      <section ref={heroRef} className={styles.hero}>
+        <MeshBackground />
+        <motion.div className={styles.heroInner} style={{ opacity: heroOpacity, y: heroY }}>
+          <motion.div
+            className={styles.heroBadge}
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+          >
+            <Zap size={12} />
+            Now accepting waitlist applications
+          </motion.div>
+
+          <motion.h1
+            className={styles.heroHeadline}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          >
+            Your empire
+            <br />
+            <span className={styles.heroGradient}>starts here.</span>
+          </motion.h1>
+
+          <motion.p
+            className={styles.heroSub}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.7 }}
+          >
+            A tech ecosystem and edtech helping individuals, founders, and institutions
+            learn, launch, and raise capital — all in one place.
+          </motion.p>
+
+          <motion.div
+            className={styles.heroCtas}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.65, duration: 0.6 }}
+          >
+            <button className={styles.ctaPrimary} onClick={() => navigate('/signin')}>
+              Join App Waitlist <ArrowRight size={16} />
+            </button>
+            <button className={styles.ctaSecondary} onClick={() => navigate('/contact')}>
+              Partner with Us
+            </button>
+          </motion.div>
+
+          <div className={styles.statsRow}>
+            <StatChip value="250k+" label="Founders in Network" delay={0} />
+            <StatChip value="2" label="Ventures" delay={0.1} />
+            <StatChip value="India" label="Based in Chennai" delay={0.2} />
+          </div>
+        </motion.div>
+
+        {/* Scroll indicator */}
+        <motion.div
+          className={styles.scrollHint}
+          animate={{ y: [0, 8, 0] }}
+          transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
+        >
+          <div className={styles.scrollDot} />
+        </motion.div>
+      </section>
+
+      {/* ── WHAT WE DO ── */}
+      <section className={styles.section}>
+        <div className={styles.container}>
+          <motion.div
+            className={styles.sectionLabel}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+          >
+            What we do
+          </motion.div>
+          <motion.h2
+            className={styles.sectionTitle}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            One platform.
+            <br />
+            <span className={styles.titleAccent}>Infinite possibilities.</span>
+          </motion.h2>
+          <motion.p
+            className={styles.sectionSub}
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1, duration: 0.6 }}
+          >
+            SPREZOX bridges the gap between learning, networking, and fundraising —
+            for the next generation of Indian innovators.
+          </motion.p>
+
+          <div className={styles.featuresGrid}>
+            {features.map((f) => (
+              <FeatureCard key={f.title} {...f} />
+            ))}
+          </div>
         </div>
-        <div className={styles.aboutContentGrid}>
-          <motion.div 
-            className={styles.aboutPrimaryText}
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
+      </section>
+
+      {/* ── WHO IT'S FOR ── */}
+      <section className={styles.sectionDark}>
+        <div className={styles.container}>
+          <div className={styles.splitLayout}>
+            <motion.div
+              className={styles.splitLeft}
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+            >
+              <div className={styles.sectionLabel}>Who it's for</div>
+              <h2 className={styles.sectionTitle}>
+                Built for every player in the startup arena.
+              </h2>
+              <p className={styles.sectionSub}>
+                Whether you're a student with an idea, a founder raising capital, an
+                investor searching for deal flow, or an institution that wants to bring
+                entrepreneurship to campus — SPREZOX has a seat at the table for you.
+              </p>
+              <button className={styles.ctaPrimary} onClick={() => navigate('/about')}>
+                Learn more about us <ArrowRight size={16} />
+              </button>
+            </motion.div>
+
+            <div className={styles.splitRight}>
+              {audiences.map((a) => (
+                <AudienceCard key={a.title} {...a} />
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── OUR VENTURES ── */}
+      <section className={styles.section}>
+        <div className={styles.container}>
+          <motion.div
+            className={styles.sectionLabel}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+          >
+            Our Ventures
+          </motion.div>
+          <motion.h2
+            className={styles.sectionTitle}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            Two products. One mission.
+          </motion.h2>
+
+          <div className={styles.venturesGrid}>
+            <motion.div
+              className={styles.ventureCard}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              whileHover={{ y: -4 }}
+            >
+              <div className={styles.ventureTag}>Venture 01</div>
+              <h3 className={styles.ventureTitle}>Entrepreneurial Tech App</h3>
+              <p className={styles.ventureDesc}>
+                A social media–style platform where founders learn from expert reels,
+                network with investors, and access private placement funding — all in
+                one seamless experience.
+              </p>
+              <button className={styles.ventureCta} onClick={() => navigate('/ventures/app')}>
+                Explore the App <ArrowRight size={14} />
+              </button>
+            </motion.div>
+
+            <motion.div
+              className={`${styles.ventureCard} ${styles.ventureCardAccent}`}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.15 }}
+              whileHover={{ y: -4 }}
+            >
+              <div className={styles.ventureTag}>Venture 02</div>
+              <h3 className={styles.ventureTitle}>EdTech for Schools & Colleges</h3>
+              <p className={styles.ventureDesc}>
+                Junior MBA programs, workshops, bootcamps, and mentorship delivered
+                to schools and colleges across India — equipping students with
+                real business and financial skills before they graduate.
+              </p>
+              <button className={styles.ventureCta} onClick={() => navigate('/ventures/edtech')}>
+                Explore EdTech <ArrowRight size={14} />
+              </button>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── FINAL CTA ── */}
+      <section className={styles.finalCta}>
+        <div className={styles.finalCtaGlow} />
+        <div className={styles.container}>
+          <motion.div
+            className={styles.finalCtaInner}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
           >
-            <h3>Connecting the Ecosystem</h3>
-            <p>SPREZOX networks startups with the entire startup ecosystem including incubators, accelerators, angel investors, venture capitalists, mentors, and entrepreneurs all in one collaborative space designed for the next generation.</p>
-          </motion.div>
-          <motion.div 
-            className={styles.aboutHighlights}
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-          >
-            <div className={styles.highlightCard}>
-              <div className={styles.highlightIcon}><BookOpen size={24} /></div>
-              <div>
-                <h4>Learn</h4>
-                <p>Gain practical business and finance knowledge through short reels, podcasts, and expert-led content, making education engaging and community-driven.</p>
-              </div>
-            </div>
-            <div className={styles.highlightCard}>
-              <div className={styles.highlightIcon}><Users size={24} /></div>
-              <div>
-                <h4>Network</h4>
-                <p>Build meaningful connections with founders, mentors, and investors. Discover opportunities, exchange ideas, and expand your network effortlessly.</p>
-              </div>
+            <h2 className={styles.finalCtaTitle}>
+              Join the forefront of
+              <br />
+              <span className={styles.heroGradient}>Indian innovation.</span>
+            </h2>
+            <p className={styles.finalCtaSub}>
+              Be among the first to access the SPREZOX ecosystem when we launch.
+            </p>
+            <div className={styles.heroCtas}>
+              <button className={styles.ctaPrimary} onClick={() => navigate('/signin')}>
+                Join App Waitlist <ArrowRight size={16} />
+              </button>
+              <button className={styles.ctaSecondary} onClick={() => navigate('/contact')}>
+                Partner with Us
+              </button>
             </div>
           </motion.div>
         </div>
-        <div className={styles.missionVisionContainer}>
-          <motion.div 
-            className={styles.missionCard}
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.4 }}
-          >
-            <Target size={32} />
-            <h3>Our Mission</h3>
-            <p>To make entrepreneurship smarter, faster, and more accessible for everyone with a bold idea. We empower young minds to turn their ideas into impactful ventures.</p>
-          </motion.div>
-          <motion.div 
-            className={styles.visionCard}
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.6 }}
-          >
-            <Eye size={32} />
-            <h3>Our Vision</h3>
-            <p>To create a vibrant digital ecosystem where learning meets networking, helping every entrepreneur move from idea to execution with confidence.</p>
-          </motion.div>
-        </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
-};
-
-// --- How It Works Section ---
-const HowItWorksSection = () => {
-    const steps = [
-        { num: '01', title: 'Create Your Profile', text: 'Build a dynamic profile that showcases your vision, skills, or investment thesis.'},
-        { num: '02', title: 'Engage the Ecosystem', text: 'Leverage our AI to discover curated content, connections, and opportunities.'},
-        { num: '03', title: 'Execute Your Vision', text: 'Move from learning to networking to fundraising, all within one seamless platform.'},
-    ];
-    return(
-        <section id="process" className={styles.howItWorksSection}>
-            <div className={styles.container}>
-                <div className={styles.sectionHeader}>
-                    <h2 className={styles.sectionTitle}>A Clear Path to Success</h2>
-                </div>
-                <div className={styles.howItWorksContainer}>
-                    {steps.map((step, i) => (
-                        <motion.div 
-                            key={i} 
-                            className={styles.howItWorksStep} 
-                            initial={{ opacity: 0, y: 50 }} 
-                            whileInView={{ opacity: 1, y: 0 }} 
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: i * 0.2 }}
-                        >
-                            <span className={styles.howItWorksNumber}>{step.num}</span>
-                            <h3 className={styles.howItWorksTitle}>{step.title}</h3>
-                            <p className={styles.howItWorksText}>{step.text}</p>
-                        </motion.div>
-                    ))}
-                </div>
-            </div>
-        </section>
-    );
-};
-
-// --- Bento Grid Section ---
-const BentoGridSection = () => {
-    return(
-        <section id="ecosystem" className={styles.bentoSection}>
-            <div className={styles.container}>
-                <div className={styles.sectionHeader}>
-                    <h2 className={styles.sectionTitle}>A Purpose-Built Ecosystem</h2>
-                    <p className={styles.sectionSubtitle}>Designed for every player in the startup arena. Find your place, find your people, find your funding.</p>
-                </div>
-                <motion.div 
-                    className={styles.bentoGrid} 
-                    initial="hidden" 
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    transition={{ staggerChildren: 0.1 }}
-                >
-                    <BentoCard gridArea="a" title="For Founders" icon={<Rocket />} description="The ultimate toolkit to build, launch, and scale your venture." />
-                    <BentoCard gridArea="b" title="For Investors" icon={<Target />} description="Access a curated pipeline of high-potential, vetted startups." />
-                    <BentoCard gridArea="c" title="For Students" icon={<BrainCircuit />} description="Turn theory into practice. Learn from experts and build your network early." />
-                    <BentoCard gridArea="d" title="AI Matchmaking" icon={<Network />} description="Our algorithm connects you to the most relevant people in the ecosystem." />
-                    <BentoCard gridArea="e" title="250k+" description="Early-Stage Founders & Students in our Network" isStat={true} />
-                </motion.div>
-            </div>
-        </section>
-    );
-};
-
-// --- Bento Card Component ---
-const BentoCard = ({ gridArea, title, icon, description, isStat = false }) => {
-    const variants = { 
-        hidden: { opacity: 0, y: 20 }, 
-        visible: { opacity: 1, y: 0, transition: { duration: 0.5 } } 
-    };
-    return(
-        <motion.div className={styles.bentoCard} style={{ gridArea }} variants={variants}>
-            {isStat ? (
-                <>
-                    <h3 className={styles.bentoStatTitle}>{title}</h3>
-                    <p className={styles.bentoStatDescription}>{description}</p>
-                </>
-            ) : (
-                <>
-                    <div className={styles.bentoIcon}>{icon}</div>
-                    <h3 className={styles.bentoTitle}>{title}</h3>
-                    <p className={styles.bentoDescription}>{description}</p>
-                </>
-            )}
-        </motion.div>
-    );
-};
-
-// --- Team Section ---
-const TeamSection = () => {
-  const teamMembers = [
-    { name: 'Mohammed Azgar', title: 'Founder & CEO', imageUrl: 'https://placehold.co/400x400/18181B/E5E7EB?text=Mohammed Azgar' },
-    { name: 'Sulaiman Kaif', title: 'Co-Founder & COO', imageUrl: 'https://placehold.co/400x400/18181B/E5E7EB?text=Md Sulaiman Kaif' },
-    { name: 'Ahamed', title: 'Chief Technology Officer', imageUrl: 'https://placehold.co/400x400/18181B/E5E7EB?text=Ahamed ' },
-    { name: 'Hanish Adrian', title: 'Chief Marketing Officer', imageUrl: 'https://placehold.co/400x400/18181B/E5E7EB?text=Hanish Adrian' },
-  ];
-
-  return (
-    <section id="team" className={styles.teamSection}>
-      <div className={styles.container}>
-        <div className={styles.sectionHeader}>
-          <h2 className={styles.sectionTitle}>Meet Our Team</h2>
-          <p className={styles.sectionSubtitle}>The passionate minds dedicated to building the future of the startup ecosystem.</p>
-        </div>
-        <motion.div 
-          className={styles.teamGrid}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          transition={{ staggerChildren: 0.1 }}
-        >
-          {teamMembers.map((member, index) => (
-            <TeamMemberCard key={index} member={member} />
-          ))}
-        </motion.div>
-      </div>
-    </section>
-  );
-};
-
-// --- Team Member Card Sub-Component ---
-const TeamMemberCard = ({ member }) => {
-  const variants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } },
-  };
-
-  return (
-    <motion.div className={styles.teamMemberCard} variants={variants}>
-      <div className={styles.teamMemberImageContainer}>
-        <img src={member.imageUrl} alt={`Photo of ${member.name}`} className={styles.teamMemberImage} />
-      </div>
-      <h3 className={styles.teamMemberName}>{member.name}</h3>
-      <p className={styles.teamMemberTitle}>{member.title}</p>
-    </motion.div>
-  );
-};
-
-// --- Final CTA Section ---
-const FinalCTA = () => {
-    const navigate = useNavigate();
-    
-    return (
-        <section className={styles.finalCTA}>
-            <div className={styles.container}>
-                <Zap size={48} className={styles.finalCtaIcon} />
-                <h2 className={styles.finalCTATitle}>Join the Forefront of Indian Innovation.</h2>
-                <p className={styles.finalCTASubtitle}>Be the first to know when we launch. Your journey starts now.</p>
-                <div className={styles.ctaButtonContainer}>
-                    <GradientButton onClick={() => navigate('/signin')}>
-                        Join Waitlist
-                    </GradientButton>
-                </div>
-            </div>
-        </section>
-    );
-};
-
-// --- Footer Component ---
-const Footer = () => (
-    <footer className={styles.footer}>
-        <div className={styles.footerContainer}>
-            <div className={styles.footerBrand}>
-                 <p className={styles.logo}>SPREZOX</p>
-                 <p>© 2025 SPREZOX Technologies. All Rights Reserved.</p>
-            </div>
-            <div className={styles.footerLinks}>
-                <a href="#privacy" className={styles.footerLink}>Privacy</a>
-                <a href="#terms" className={styles.footerLink}>Terms</a>
-                <a href="#contact" className={styles.footerLink}>Contact</a>
-            </div>
-        </div>
-    </footer>
-);
-
-// --- Gradient Button Component ---
-const GradientButton = ({ children, size = 'medium', onClick }) => (
-    <button className={`${styles.gradientButton} ${styles[size]}`} onClick={onClick}>
-        {children} <ArrowRight size={size === 'large' ? 20 : 18} />
-    </button>
-);
-
-// --- Custom Cursor Component ---
-const CustomCursor = () => {
-    const cursorRef = useRef(null);
-    useEffect(() => {
-        if (window.matchMedia("(hover: none)").matches) return;
-        const moveCursor = (e) => {
-          if (cursorRef.current) {
-            cursorRef.current.style.transform = `translate3d(calc(${e.clientX}px - 50%), calc(${e.clientY}px - 50%), 0)`;
-          }
-        };
-        window.addEventListener('mousemove', moveCursor);
-        return () => window.removeEventListener('mousemove', moveCursor);
-    }, []);
-    return <div ref={cursorRef} className={styles.customCursor}></div>;
-};
+}
