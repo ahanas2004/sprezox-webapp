@@ -131,7 +131,8 @@ body, html {
   color: var(--text-muted);
   line-height: 1.7;
   max-width: 680px;
-  margin: 0;
+  margin: 0 auto; /* Centers the block horizontally */
+  text-align: center; /* Centers the text inside the block */
   opacity: 0;
   animation: fadeInUp 0.8s ease 0.2s forwards;
 }

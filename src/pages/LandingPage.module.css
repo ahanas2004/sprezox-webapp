@@ -70,7 +70,7 @@ body, html {
 .meshOrb1, .meshOrb2, .meshOrb3 {
   position: absolute;
   border-radius: 50%;
-  filter: blur(90px); /* Creates a smooth, atmospheric glow */
+  filter: blur(90px);
   opacity: 0.7;
 }
 
@@ -133,17 +133,25 @@ body, html {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background: rgba(108,99,255,0.1);
-  border: 1px solid rgba(108,99,255,0.3);
+  background: rgba(108,99,255,0.15);
+  border: 1px solid rgba(108,99,255,0.4);
   color: #c4b5fd;
-  font-size: clamp(0.7rem, 2vw, 0.8rem);
+  font-size: clamp(0.75rem, 2vw, 0.85rem);
   font-weight: 600;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1.25rem;
   border-radius: 99px;
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   animation: fadeInUp 0.8s ease forwards;
+}
+
+.badgeIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fbbf24; /* Golden pop for the Zap icon */
 }
 
 .heroHeadline {
@@ -168,11 +176,13 @@ body, html {
 }
 
 .heroSub {
-  font-size: clamp(1rem, 2vw, 1.25rem);
-  color: var(--text-muted);
-  line-height: 1.6;
+  font-size: clamp(1.1rem, 2.5vw, 1.25rem);
+  color: rgba(255, 255, 255, 0.85); /* Brighter, high-contrast text */
+  line-height: 1.7;
   max-width: 600px;
-  margin: 0;
+  margin: 0 auto;
+  text-align: center;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.5); /* Helps text pop off the mesh */
   opacity: 0;
   animation: fadeInUp 0.8s ease 0.2s forwards;
 }
@@ -230,6 +240,60 @@ body, html {
   box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
+/* ── Stats Row ── */
+.statsRow {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 2rem;
+  opacity: 0;
+  animation: fadeInUp 0.8s ease 0.4s forwards;
+}
+
+.statChip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--card-bg);
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  padding: 0.75rem 1.5rem;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.statValue {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(1.25rem, 2vw, 1.5rem);
+  font-weight: 700;
+  color: #fff;
+}
+
+.statLabel {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-top: 0.2rem;
+}
+
+/* Scroll hint */
+.scrollHint {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.scrollDot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.3);
+  box-shadow: 0 0 0 6px rgba(255,255,255,0.06);
+}
+
 /* ── Layout & Sections ── */
 .section, .sectionDark, .finalCta {
   padding: clamp(4rem, 10vh, 8rem) clamp(1.25rem, 5vw, 2rem);
@@ -242,6 +306,7 @@ body, html {
   border-top: 1px solid var(--border-light);
   border-bottom: 1px solid var(--border-light);
   backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 
 .container {
@@ -284,7 +349,7 @@ body, html {
   margin: 0 0 clamp(2.5rem, 5vw, 4rem);
 }
 
-/* ── Grids & Cards (Glassmorphism & Hover Depth) ── */
+/* ── Grids & Cards ── */
 .featuresGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -341,6 +406,7 @@ body, html {
   font-size: clamp(0.85rem, 1.5vw, 0.95rem);
   color: var(--text-muted);
   line-height: 1.6;
+  margin: 0;
 }
 
 /* ── Split Layout ── */
@@ -375,6 +441,22 @@ body, html {
   box-shadow: -10px 10px 20px rgba(0,0,0,0.2);
 }
 
+.audienceEmoji { font-size: 2rem; }
+
+.audienceTitle {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.audienceDesc {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
 .audienceArrow {
   margin-left: auto;
   color: var(--border-hover);
@@ -401,12 +483,16 @@ body, html {
   background: linear-gradient(180deg, var(--card-bg), rgba(255,255,255,0));
   border: 1px solid var(--border-light);
   border-radius: 24px;
-  padding: clamp(2rem, 5vw, 3rem);
+  
+  /* 👇 Changed minimum from 2rem to 1.25rem */
+  padding: clamp(0.1rem, 5vw, 3rem); 
+  
   display: flex;
   flex-direction: column;
   gap: 1rem;
   transition: var(--transition-smooth);
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .ventureCard:hover {
@@ -415,12 +501,84 @@ body, html {
   box-shadow: 0 30px 50px rgba(0,0,0,0.5);
 }
 
+.ventureCardAccent:hover {
+  border-color: var(--secondary);
+}
+
+.ventureTag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.ventureTitle {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 800;
+  color: #fff;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.ventureDesc {
+  font-size: clamp(0.95rem, 1.5vw, 1.05rem);
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin: 0;
+  flex: 1;
+}
+
+/* Updated Explore Buttons */
+.ventureCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: #fff;
+  border-radius: 12px;
+  padding: 0.875rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: all 0.3s ease;
+  margin-top: 1.5rem;
+  align-self: flex-start;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.ventureCard .ventureCta:hover {
+  background: rgba(108, 99, 255, 0.15);
+  border-color: #6C63FF;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(108, 99, 255, 0.25);
+  color: #fff;
+}
+
+.ventureCardAccent .ventureCta:hover {
+  background: rgba(168, 85, 247, 0.15);
+  border-color: #A855F7;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(168, 85, 247, 0.25);
+  color: #fff;
+}
+
+.featuresGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: clamp(1rem, 3vw, 1.5rem);
+}
 /* ── Final CTA ── */
 .finalCta {
   text-align: center;
   overflow: hidden;
   display: flex;
   justify-content: center;
+  padding: clamp(4rem, 10vh, 8rem) 0; /* Ensures vertical spacing breathes */
 }
 
 .finalCtaGlow {
@@ -442,22 +600,46 @@ body, html {
   align-items: center;
   gap: clamp(1rem, 3vw, 2rem);
   width: 100%;
+  padding: 0 clamp(1rem, 5vw, 2rem); /* CRITICAL: Gives text breathing room on 320px */
+  box-sizing: border-box;
 }
 
-/* ── Mobile Specific Overrides ── */
-@media (max-width: 576px) {
-  .heroCtas {
-    flex-direction: column;
+.finalCtaTitle {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(2rem, 6vw, 4.5rem); /* Lowered minimum to 2rem (32px) so long words fit */
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: #fff;
+  margin: 0;
+}
+
+.finalCtaSub {
+  font-size: clamp(0.95rem, 3vw, 1.05rem); /* Fluid text for mobiles */
+  color: rgba(255,255,255,0.5);
+  max-width: 480px;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* ── Mobile & Medium Display Overrides ── */
+@media (max-width: 768px) {
+  .heroCtas { flex-direction: column; width: 100%; }
+  .ctaPrimary, .ctaSecondary { width: 100%; justify-content: center; }
+  .statsRow { flex-direction: column; width: 100%; }
+  .statChip { width: 100%; margin-bottom: 0.5rem; }
+  .ventureCta { width: 100%; justify-content: center; align-self: stretch; margin-top: 1rem; }
+}
+
+/* ── Extra Small Phones (320px - 380px) ── */
+@media (max-width: 380px) {
+  .finalCtaInner {
+    padding: 0 1rem;
   }
-  .ctaPrimary, .ctaSecondary {
-    width: 100%;
+  .finalCtaTitle {
+    font-size: 1.75rem; /* Shrinks title further so it doesn't break tiny screens */
   }
-  .statsRow {
-    flex-direction: column;
-    width: 100%;
-  }
-  .statChip {
-    width: 100%;
-    margin-bottom: 0.5rem;
+  .finalCtaSub {
+    font-size: 0.85rem;
   }
 }
